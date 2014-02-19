@@ -65,6 +65,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         image_container = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,16 +95,25 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel5.setText("cm");
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image.png"))); // NOI18N
+
         javax.swing.GroupLayout image_containerLayout = new javax.swing.GroupLayout(image_container);
         image_container.setLayout(image_containerLayout);
         image_containerLayout.setHorizontalGroup(
             image_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 378, Short.MAX_VALUE)
+            .addGroup(image_containerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         image_containerLayout.setVerticalGroup(
             image_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 257, Short.MAX_VALUE)
+            .addGroup(image_containerLayout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addGap(0, 71, Short.MAX_VALUE))
         );
+
+        jLabel6.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,7 +141,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(angle_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(43, 43, 43)
                 .addComponent(image_container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,17 +165,6 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(image_container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(245, Short.MAX_VALUE))
         );
-
-        BufferedImage myPicture = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_RGB);
-
-        try {
-            myPicture = ImageIO.read(new File("./image.jpg"));
-        }
-        catch (IOException ex) {
-            System.out.println(ex.getCause());
-        }
-        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-        this.image_container.add(picLabel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -229,6 +228,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField r_input;
     private javax.swing.JTextField t_input;
