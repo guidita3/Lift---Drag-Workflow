@@ -1,4 +1,4 @@
 Lift---Drag-Workflow
 ====================
 
-Project of the module of Small Scale Parallel Computing
+Project of the module of Applications in High End Computing
