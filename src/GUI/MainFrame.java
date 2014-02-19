@@ -7,12 +7,12 @@
 package GUI;
 
 import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 
 /**
@@ -31,8 +31,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         JFreeChart chart = ChartFactory.createBarChart("Student score", "Studant Name", "Marks", dataset, PlotOrientation.VERTICAL, false, true, false);
 
-        CategoryPlot p = char.getCategoryPlot();
-        p.setRangeGridlinePain(Color.black);
+        CategoryPlot p = chart.getCategoryPlot();
+        p.setRangeGridlinePaint(Color.black);
         ChartFrame frame = new ChartFrame("Bar Chart for students", chart);
         frame.setVisible(true);
         frame.setSize(450, 350);
@@ -43,6 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        drawChart();
     }
 
     /**
