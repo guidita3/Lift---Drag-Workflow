@@ -24,13 +24,27 @@ import org.jfree.data.xy.XYSeriesCollection;
  * @author Pereira
  */
 public class MainFrame extends javax.swing.JFrame {
-
-    public void drawChart() {        
+    
+    public void transform_data_to_plot(double[][] data_from_db) {
+        if(data_from_db.length != 0) {
+            if(data_from_db[0].length == 5) {
+                double[][] data_chart = new double[data_from_db.length][2];
+                for(int i = 0; i < data_from_db.length; i++){
+                    data_chart[i][0] = data_from_db[i][0];
+                    data_chart[i][1] = data_from_db[i][4];
+                }
+            }
+        }
+        else
+            System.err.println("Error: tranform_data_to_plot - wrong data given.");
+    }
+    
+    
+    public void drawChart(double[][] data_chart) {        
         XYSeries series = new XYSeries("XYGraph");
         
-        series.add(1, 1);
-        series.add(2, 3);
-        series.add(3, 6);
+        for(int i = 0; i < data_chart.length; i++)
+            series.add(data_chart[i][0], data_chart[i][1]);
         
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series);
@@ -51,7 +65,12 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        drawChart();
+        double[][] arr = new double[3][3];
+        for(int i = 0; i < arr.length; i++){
+            arr[i][0] = i;
+            arr[i][1] = i+2;
+        }
+        drawChart(arr);
     }
 
     /**
