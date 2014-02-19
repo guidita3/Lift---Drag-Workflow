@@ -6,6 +6,7 @@
 
 package GUI;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,23 @@ import javax.swing.JLabel;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    public void drawChart() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        dataset.setValue(80, "Marks", "Student1");
+        dataset.setValue(50, "Marks", "Student2");
+        dataset.setValue(40, "Marks", "Student3");
+        dataset.setValue(70, "Marks", "Student4");
+
+        JFreeChart chart = ChartFactory.createBarChart("Student score", "Studant Name", "Marks", dataset, PlotOrientation.VERTICAL, false, true, false);
+
+        CategoryPlot p = char.getCategoryPlot();
+        p.setRangeGridlinePain(Color.black);
+        ChartFrame frame = new ChartFrame("Bar Chart for students", chart);
+        frame.setVisible(true);
+        frame.setSize(450, 350);
+    }
+    
     /**
      * Creates new form MainFrame
      */
