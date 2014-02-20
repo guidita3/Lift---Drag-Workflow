@@ -6,7 +6,7 @@ import java.sql.*;
  *
  * @author Miguel Angel Grimaldos
  */
-public class User {
+public class UserDB {
 
     protected ConnectionManager connManager;
 
@@ -35,11 +35,7 @@ public class User {
                     + "from USERS where USERNAME= '" + userName + "'");
             connManager.close();
             try {
-                if (rs.next()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return rs.next();
             } catch (SQLException e) {
                 throw new Exception("DB_READ_ERROR");
             }

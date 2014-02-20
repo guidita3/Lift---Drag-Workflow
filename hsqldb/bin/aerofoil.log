@@ -1,3 +1,4 @@
 /*C4*/SET SCHEMA PUBLIC
 INSERT INTO USERS VALUES(0,'admin','admin')
 COMMIT
+CREATE TABLE BACKUP(\u000a    iteration int IDENTITY NOT NULL,\u000a    r float(53) NOT NULL,\u000a    t float(53) NOT NULL,\u000a    theta float(53) NOT NULL,\u000a    coeficient float(53) NOT NULL\u000a)

@@ -29,7 +29,7 @@ public class InitialiseDB {
         try {
             Statement sentencia = dbcon.createStatement();
             sentencia.execute("delete from PUBLIC.USER;");
-            sentencia.execute("delete from PUBLIC.DATA;");
+            sentencia.execute("delete from PUBLIC.BACKUP;");
 	} catch (SQLException e) {
             e.printStackTrace();
 	}
