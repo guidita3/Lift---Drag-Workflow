@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Logic;
 
 /**
@@ -17,6 +11,9 @@ public class compData {
     private double theta;
     private double coeficient;
     
+    /**
+     * Standard constructor
+     */
     public compData(){
         iteration = -1;
         r = -1;
@@ -25,6 +22,14 @@ public class compData {
         coeficient = -1;
     }
     
+    /**
+     * Alternative constructor. It is created with the data given as parameters.
+     * @param iteration Number of the iteration when the calculation was performed
+     * @param r
+     * @param t
+     * @param theta
+     * @param coeficient Drag/Lift
+     */
     public compData(int iteration, double r, double t, double theta, double coeficient){
         this.iteration = iteration;
         this.r = r;

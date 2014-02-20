@@ -9,12 +9,16 @@ package Logic;
 import java.sql.*;
 
 /**
- *
+ * Class that initialises the DB at the beginning of the execution.
  * @author Miguel Angel Grimaldos
  */
 public class InitialiseDB {
     private static Connection dbcon = null;
     
+    /**
+     * Clean the database from old data.
+     * @param args 
+     */
     public static void main(String args[]){
         try{
             Class.forName ("org.hsqldb.jdbcDriver");
@@ -28,7 +32,7 @@ public class InitialiseDB {
 	}
         try {
             Statement sentencia = dbcon.createStatement();
-            sentencia.execute("delete from PUBLIC.USER;");
+            //sentencia.execute("delete from PUBLIC.USER;");
             sentencia.execute("delete from PUBLIC.BACKUP;");
 	} catch (SQLException e) {
             e.printStackTrace();

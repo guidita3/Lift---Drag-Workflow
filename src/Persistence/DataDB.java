@@ -4,13 +4,18 @@ import java.sql.*;
 import Logic.compData;
 
 /**
- *
+ * Class to manipulate BACKUP table. This is the table where the results are stored.
  * @author Miguel Angel Grimaldos
  */
 public class DataDB {
 
     protected ConnectionManager connManager;
 
+    /**
+     * It introduces new data in the DB.
+     * @param data Object containing the data to be stored
+     * @throws Exception 
+     */
     public void createNewData(compData data) throws Exception {
         try {
             connManager.connect();
@@ -26,6 +31,11 @@ public class DataDB {
         }
     }
 
+    /**
+     * It returns the data from the last iteration.
+     * @return Last iteration data
+     * @throws Exception 
+     */
     public compData findLastData() throws Exception {
         try {
 
