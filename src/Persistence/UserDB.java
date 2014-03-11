@@ -1,5 +1,6 @@
 package Persistence;
 
+import Logic.compUser;
 import java.sql.*;
 
 /**
@@ -18,7 +19,7 @@ public class UserDB {
      */
     public void createRegisteredUser(String userName, String password) throws Exception {
         try {
-            if (this.findPersonbyUserName(userName)) {
+            if (this.userNameExists(userName)) {
                 connManager.connect();
 
                 connManager.updateDB("insert into USERS (USERNAME, PASSWORD) "
@@ -39,7 +40,7 @@ public class UserDB {
      * @return Whether the username exists or not
      * @throws Exception 
      */
-    public boolean findPersonbyUserName(String userName) throws Exception {
+    public boolean userNameExists(String userName) throws Exception {
         try {
 
             connManager.connect();
@@ -48,6 +49,30 @@ public class UserDB {
             connManager.close();
             try {
                 return rs.next();
+            } catch (SQLException e) {
+                throw new Exception("DB_READ_ERROR");
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public compUser findPersonbyUserName(String userName) throws Exception {
+        try {
+
+            connManager.connect();
+            
+            ResultSet rs = connManager.queryDB("select USERID, USERNAME, PASSWORD "
+                    + "from USERS where USERNAME= '" + userName + "'");
+            connManager.close();
+            try {
+                if (rs.next()) {
+                    compUser user = new compUser(rs.getInt("USERID"),
+                            rs.getString("USERNAME"), rs.getString("PASSWORD"));
+                    return user;
+                } else {
+                    return null;
+                }
             } catch (SQLException e) {
                 throw new Exception("DB_READ_ERROR");
             }
