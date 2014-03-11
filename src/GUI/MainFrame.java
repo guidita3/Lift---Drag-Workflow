@@ -32,6 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
     private compData data;
     private DataDB dataBase = new DataDB();
     private boolean first_run;
+    private SystemError failurePopup;
 
     public void transform_data_to_plot(double[][] data_from_db) {
         if (data_from_db.length != 0) {
@@ -73,11 +74,15 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         setBackground(Color.white);
+        this.setTitle("Lift and Drag Optimizer");
         this.old_params = new double[4];
         this.current_params = new double[4];
         this.new_params = new double[4];
         this.first_run = true;
         this.error = false;
+        this.failurePopup = new SystemError();
+        this.failurePopup.setVisible(this.error);
+        
         double[][] arr = new double[3][3];
         for (int i = 0; i < arr.length; i++) {
             arr[i][0] = i;
@@ -320,7 +325,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;
-
+       
         this.current_params[0] = Double.parseDouble(r_input.getText());
         this.current_params[1] = Double.parseDouble(t_input.getText());
         this.current_params[2] = Double.parseDouble(angle_input.getText());
@@ -344,7 +349,7 @@ public class MainFrame extends javax.swing.JFrame {
             if (drag <= 0) {
                 this.error = true;
             }
-            
+            this.failurePopup.setVisible(error);
             //TO DO: if error = true --> send error to GUI, don't do the optimizer step
             lift_drag = lift / drag;
             if (this.error == false) {
