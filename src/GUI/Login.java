@@ -13,11 +13,13 @@ import Logic.LoginLogic;
  */
 public class Login extends javax.swing.JFrame {
 
+    private MainFrame mafr;
     /**
      * Creates new form NewJFrame
      */
     public Login() {
         initComponents();
+        this.mafr = new MainFrame();
     }
 
     /**
@@ -129,6 +131,9 @@ public class Login extends javax.swing.JFrame {
         jLabelError.setVisible(false);
         jLabelErrorDB.setVisible(false);
         
+        this.setVisible(false);
+        this.mafr.setVisible(true);
+        /*
         try {
             if( new LoginLogic().checkUserAndPassword(userName,passw) == false)
              {
@@ -138,14 +143,19 @@ public class Login extends javax.swing.JFrame {
                jTextPassword.setText("");   
              }
             //Username and password correct
-            else jTextUsername.setText("ueeeee");
+            else 
+            {
+                this.setVisible(false);
+                
+            }
+                
         } catch (Exception e) 
             {
              //Database error
              jLabelErrorDB.setVisible(true);
              jTextUsername.setText("");
              jTextPassword.setText("");
-            }
+            }*/
 
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
