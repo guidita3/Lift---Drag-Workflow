@@ -37,6 +37,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabelError = new javax.swing.JLabel();
+        jLabelErrorDB = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -60,8 +61,13 @@ public class Login extends javax.swing.JFrame {
 
         jLabelError.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelError.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelError.setText("Username and/or password incorrect.");
+        jLabelError.setText("Username and/or password incorrect");
         jLabelError.setVisible(false);
+
+        jLabelErrorDB.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelErrorDB.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelErrorDB.setText("Data base error");
+        jLabelErrorDB.setVisible(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -70,6 +76,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelErrorDB)
                     .addComponent(jLabelError)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -95,9 +102,11 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jTextPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jLabelError)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
+                .addComponent(jLabelErrorDB)
+                .addGap(1, 1, 1)
                 .addComponent(jButtonLogin)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -117,13 +126,26 @@ public class Login extends javax.swing.JFrame {
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         String userName = jTextUsername.getText();
         String passw = jTextPassword.getText();
-        if( new LoginLogic().checkUserAndPassword(userName,passw) == false)
-        {
-         jLabelError.setVisible(true);
-         jTextUsername.setText("");
-         jTextPassword.setText("");   
-        }
-        else jTextUsername.setText("ueeeee");
+        jLabelError.setVisible(false);
+        jLabelErrorDB.setVisible(false);
+        
+        try {
+            if( new LoginLogic().checkUserAndPassword(userName,passw) == false)
+             {
+               //Incorrect username or/and password
+               jLabelError.setVisible(true);
+               jTextUsername.setText("");
+               jTextPassword.setText("");   
+             }
+            //Username and password correct
+            else jTextUsername.setText("ueeeee");
+        } catch (Exception e) 
+            {
+             //Database error
+             jLabelErrorDB.setVisible(true);
+             jTextUsername.setText("");
+             jTextPassword.setText("");
+            }
 
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
@@ -167,6 +189,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelError;
+    private javax.swing.JLabel jLabelErrorDB;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextPassword;
     private javax.swing.JTextField jTextUsername;
