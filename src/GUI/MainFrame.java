@@ -28,7 +28,7 @@ public class MainFrame extends javax.swing.JFrame {
     private double[] old_params; // radius, length, angle, default
     private double[] current_params; // radius, length, angle, default
     private double[] new_params; // radius, length, angle, default
-    private boolean stop;
+    private int number_iterations;
     private boolean error;
     
     public void transform_data_to_plot(double[][] data_from_db) {
@@ -75,7 +75,6 @@ public class MainFrame extends javax.swing.JFrame {
         this.old_params = new double[4];
         this.current_params = new double[4];
         this.new_params = new double[4];
-        this.stop = false;
         double[][] arr = new double[3][3];
         for(int i = 0; i < arr.length; i++){
             arr[i][0] = i;
@@ -107,7 +106,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -347,8 +345,10 @@ public class MainFrame extends javax.swing.JFrame {
         this.old_params[1] = this.current_params[1] - 0.01; //starts increasing t with a step of 0.01
         this.old_params[2] = this.current_params[2] - 0.0001; //starts increasing theta with a step of 0.001
         this.old_params[3] = 0;
+        this.number_iterations = Integer.parseInt(n_iter.getText());
+        int i = 0;
         
-        while (!this.stop) {
+        while (i < this.number_iterations) {
             
             lift = lift(this.current_params[0], this.current_params[1], this.current_params[2]);
             drag = drag(this.current_params[0], this.current_params[1], this.current_params[2]);
@@ -371,6 +371,7 @@ public class MainFrame extends javax.swing.JFrame {
             
             this.old_params = this.current_params;
             this.current_params = this.new_params;
+            i++;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
