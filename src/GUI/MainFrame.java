@@ -7,14 +7,14 @@
 package GUI;
 
 import java.awt.Color;
-import javax.swing.JPanel;
+import static java.lang.StrictMath.cos;
+import static java.lang.StrictMath.exp;
+import static java.lang.StrictMath.sin;
+import java.util.Hashtable;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -24,6 +24,12 @@ import org.jfree.data.xy.XYSeriesCollection;
  * @author Pereira
  */
 public class MainFrame extends javax.swing.JFrame {
+    
+    private double[] old_params; // radius, length, angle, default
+    private double[] current_params; // radius, length, angle, default
+    private double[] new_params; // radius, length, angle, default
+    private boolean stop;
+    private boolean error;
     
     public void transform_data_to_plot(double[][] data_from_db) {
         if(data_from_db.length != 0) {
@@ -65,6 +71,11 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        setBackground(Color.white);
+        this.old_params = new double[4];
+        this.current_params = new double[4];
+        this.new_params = new double[4];
+        this.stop = false;
         double[][] arr = new double[3][3];
         for(int i = 0; i < arr.length; i++){
             arr[i][0] = i;
@@ -94,24 +105,34 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         chart_panel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        r_input.setText("500");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        r_input.setText("1");
         r_input.setName("r_input"); // NOI18N
 
-        t_input.setText("250");
+        t_input.setText("1");
         t_input.setName("t_input"); // NOI18N
 
-        angle_input.setText("15");
+        angle_input.setText("0.5");
         angle_input.setName("angle_input"); // NOI18N
 
+        jLabel1.setBackground(java.awt.Color.white);
         jLabel1.setText("Radius = ");
 
+        jLabel2.setBackground(java.awt.Color.white);
         jLabel2.setText("Length = ");
 
+        jLabel3.setBackground(java.awt.Color.white);
         jLabel3.setText("Angle = ");
 
+        default_input.setBackground(java.awt.Color.white);
         default_input.setText("Use default values");
         default_input.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,80 +140,117 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("cm");
+        jLabel4.setBackground(java.awt.Color.white);
+        jLabel4.setText("meter(s)");
 
-        jLabel5.setText("cm");
+        jLabel5.setBackground(java.awt.Color.white);
+        jLabel5.setText("meter(s)");
+
+        chart_panel.setBackground(java.awt.Color.white);
 
         javax.swing.GroupLayout chart_panelLayout = new javax.swing.GroupLayout(chart_panel);
         chart_panel.setLayout(chart_panelLayout);
         chart_panelLayout.setHorizontalGroup(
             chart_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 632, Short.MAX_VALUE)
+            .addGap(0, 624, Short.MAX_VALUE)
         );
         chart_panelLayout.setVerticalGroup(
             chart_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 349, Short.MAX_VALUE)
         );
 
+        jLabel6.setBackground(java.awt.Color.white);
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image.png"))); // NOI18N
+
+        jButton1.setText("Submit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("radians");
+
+        jButton2.setText("Stop");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(chart_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(t_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel5))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(angle_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(r_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel4)))
-                            .addComponent(default_input))
-                        .addGap(73, 73, 73)
-                        .addComponent(jLabel6)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(r_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(angle_input, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(t_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5))
+                            .addComponent(default_input)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)))
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel6))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(chart_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {angle_input, r_input, t_input});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(r_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(t_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(angle_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(37, 37, 37)
-                        .addComponent(default_input)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(default_input)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
+                        .addGap(25, 25, 25))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(chart_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -203,7 +261,7 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,6 +274,103 @@ public class MainFrame extends javax.swing.JFrame {
     private void default_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_default_inputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_default_inputActionPerformed
+
+    public double lift(double r, double t, double theta){
+        double lift=0;
+        double lift_coeff=0;
+
+        lift_coeff=1.01731*exp(theta) - 1.01731;
+        lift=lift_coeff*(5*cos(theta)+2*r*sin(theta)*2*t*1000*278*278*0.5);//We assume 5 meters wing width, 1000 g/m^3 air density, 1000 km/h = 278 m/s, all units are from the SI
+
+        return lift;
+    }
+    
+    public double drag (double r, double t, double theta){
+        double drag = 0;
+        double drag_coeff = 0.09; //Assuming Streamlined half-body shape for the wing
+
+        drag = drag_coeff*2*r*t*1000*278*278*0.5/(cos(theta));
+        return drag;
+    }
+    
+    public double[] optimizer (double lift_drag, double old_lift_drag, double[] old_param, double[] current_param){
+        double[] new_param = new double[5];//param[0]=r, param[1]=t, param[2]=theta, param[3]= turns improving in a row, param[5]=parameter we are going to change i.e. if param[5]=1 that means that we are only increasing/decreasing param[1]
+        double current_lift_drag;
+        boolean improve;
+        
+        current_lift_drag=lift_drag;
+        
+        if (current_lift_drag >= old_lift_drag){
+            improve = true;
+            new_param[3]=current_param[3] +1;//total turns improving non-stop + 1
+        }
+        else{
+            improve = false;
+            new_param[3]=0; //total turns improving non-stop is now 0 (this turn we didn't get a better result
+        }
+        
+        if (improve == true){
+            for (int i = 0; i < 3; i++) {
+                new_param[i]=current_param[i] + (current_param[i] - old_param[i]); //we need to create an old_param and a current_param when starting the code for the first time, the difference between old_param[i] and current_param[i] is the step size for each parameter.
+            }
+            if (new_param[2] > 0.52){ //if theta > 30 --> theta = 30 (30 degrees in radians = 0.52 aprox
+                new_param[2] = 0.52;
+            }
+            if (new_param[2] < 0){ //if theta < 0 --> theta = 0
+                new_param[2] = 0;
+            }
+        }
+        else{
+            for (int i = 0; i < 3; i++) {
+                new_param[i]=current_param[i] - (current_param[i] - old_param[i]);
+            }
+            if (new_param[2] > 0.52){ //if theta > 30 --> theta = 30 (30 degrees in radians = 0.52 aprox
+                new_param[2] = 0.52;
+            }
+            if (new_param[2] < 0){ //if theta < 0 --> theta = 0
+                new_param[2] = 0;
+            }
+        }
+        return new_param;
+    }
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        double lift, drag, lift_drag, old_lift_drag = 0;
+        
+        this.current_params[0] = Double.parseDouble(r_input.getText());
+        this.current_params[1] = Double.parseDouble(t_input.getText());
+        this.current_params[2] = Double.parseDouble(angle_input.getText());
+        this.current_params[3] = 0;        
+        
+        // starts increasing
+        this.old_params[0] = this.current_params[0] - 0.01; //starts increasing r with a step of 0.01
+        this.old_params[1] = this.current_params[1] - 0.01; //starts increasing t with a step of 0.01
+        this.old_params[2] = this.current_params[2] - 0.0001; //starts increasing theta with a step of 0.001
+        this.old_params[3] = 0;
+        
+        while (!this.stop) {
+            
+            lift = lift(this.current_params[0], this.current_params[1], this.current_params[2]);
+            drag = drag(this.current_params[0], this.current_params[1], this.current_params[2]);
+            //TO DO: CHECK FOR ERRORS: exceptions, waiting for too long
+            //TO DO: if error = true --> send error to GUI, don't do the optimizer step
+            lift_drag = lift/drag;
+            if (this.error == false){
+                this.new_params = optimizer(lift_drag, old_lift_drag, this.old_params, this.current_params);
+            }
+            //TO DO: SAVE DATA
+            
+            System.out.println("Lift: " + lift + "    Drag: " + drag + "   Lift/Drag: " + lift_drag);   
+            System.out.println("new_r: " + this.new_params[0] + "   new_t: " + this.new_params[1] + "   new_theta: " + this.new_params[2]);
+            
+            this.old_params = this.current_params;
+            this.current_params = this.new_params;
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        this.stop = true;
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -256,12 +411,15 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField angle_input;
     private javax.swing.JPanel chart_panel;
     private javax.swing.JCheckBox default_input;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField r_input;
     private javax.swing.JTextField t_input;
