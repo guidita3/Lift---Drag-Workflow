@@ -1,5 +1,7 @@
 package GUI;
 
+import Logic.LoginLogic;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -115,11 +117,14 @@ public class Login extends javax.swing.JFrame {
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         String userName = jTextUsername.getText();
         String passw = jTextPassword.getText();
-        
-        //If error
-        jLabelError.setVisible(true);
-        jTextUsername.setText("");
-        jTextPassword.setText("");
+        if( new LoginLogic().checkUserAndPassword(userName,passw) == false)
+        {
+         jLabelError.setVisible(true);
+         jTextUsername.setText("");
+         jTextPassword.setText("");   
+        }
+        else jTextUsername.setText("ueeeee");
+
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     /**
