@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package GUI;
 
 import Logic.compData;
@@ -19,13 +18,12 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-
 /**
  *
  * @author Pereira
  */
 public class MainFrame extends javax.swing.JFrame {
-    
+
     private double[] old_params; // radius, length, angle, default
     private double[] current_params; // radius, length, angle, default
     private double[] new_params; // radius, length, angle, default
@@ -34,42 +32,42 @@ public class MainFrame extends javax.swing.JFrame {
     private boolean error;
     private compData data;
     private DataDB dataBase = new DataDB();
-    
+    private boolean first_run;
+
     public void transform_data_to_plot(double[][] data_from_db) {
-        if(data_from_db.length != 0) {
-            if(data_from_db[0].length == 5) {
+        if (data_from_db.length != 0) {
+            if (data_from_db[0].length == 5) {
                 double[][] data_chart = new double[data_from_db.length][2];
-                for(int i = 0; i < data_from_db.length; i++){
+                for (int i = 0; i < data_from_db.length; i++) {
                     data_chart[i][0] = data_from_db[i][0];
                     data_chart[i][1] = data_from_db[i][4];
                 }
             }
-        }
-        else
+        } else {
             System.err.println("Error: tranform_data_to_plot - wrong data given.");
+        }
     }
-    
-    
-    public void drawChart(double[][] data_chart) {        
+
+    public void drawChart(double[][] data_chart) {
         XYSeries series = new XYSeries("XYGraph");
         for (double[] data_chart1 : data_chart) {
             series.add(data_chart1[0], data_chart1[1]);
         }
-        
+
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series);
-        
+
         JFreeChart chart = ChartFactory.createXYLineChart("", "Iteration number", "Lift/Drag", dataset, PlotOrientation.VERTICAL, true, true, false);
-        
+
         ChartPanel CP = new ChartPanel(chart);
         chart_panel.setSize(100, 100);
         chart_panel.setLayout(new java.awt.BorderLayout());
         chart_panel.add(CP);
         chart_panel.setVisible(true);
         chart_panel.validate();
-        
+
     }
-    
+
     /**
      * Creates new form MainFrame
      */
@@ -80,10 +78,11 @@ public class MainFrame extends javax.swing.JFrame {
         this.current_params = new double[4];
         this.new_params = new double[4];
         this.step = new double[3];
+        this.first_run = true;
         double[][] arr = new double[3][3];
-        for(int i = 0; i < arr.length; i++){
+        for (int i = 0; i < arr.length; i++) {
             arr[i][0] = i;
-            arr[i][1] = i+2;
+            arr[i][1] = i + 2;
         }
         drawChart(arr);
     }
@@ -263,149 +262,167 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     /**
-     * This function calculates the lift force of the wing.
-     * It uses SI units, and takes example values for the speed, air density and drag coefficient for a BAC lightning.
+     * This function calculates the lift force of the wing. It uses SI units,
+     * and takes example values for the speed, air density and drag coefficient
+     * for a BAC lightning.
+     *
      * @param r This is the width of the wing.
      * @param t This is the lenght of the wing.
      * @param theta This is the angle of attack.
      * @return Returns the value of the lift force.
      * @author Joan
      */
-    public double lift(double r, double t, double theta){
+    public double lift(double r, double t, double theta) {
         double lift;
         double lift_coeff;
 
-        lift_coeff = 1.01731*exp(theta) - 1.01731;
-        lift = lift_coeff*(5*cos(theta)+2*r*sin(theta)*2*t*1000*278*278*0.5);//We assume 5 meters wing width, 1000 g/m^3 air density, 1000 km/h = 278 m/s, all units are from the SI
+        lift_coeff = 1.01731 * exp(theta) - 1.01731;
+        lift = lift_coeff * (5 * cos(theta) + 2 * r * sin(theta) * 2 * t * 1000 * 278 * 278 * 0.5);//We assume 5 meters wing width, 1000 g/m^3 air density, 1000 km/h = 278 m/s, all units are from the SI
 
         return lift;
     }
+
     /**
-     * This function calculates the drag force of the wing.
-     * It uses SI units, and takes example values for the speed, air density and drag coefficient for a BAC lightning.
-     * 
+     * This function calculates the drag force of the wing. It uses SI units,
+     * and takes example values for the speed, air density and drag coefficient
+     * for a BAC lightning.
+     *
      * @param r This is the width of the wing.
      * @param t This is the length of the wing.
      * @param theta This is the angle of attack.
      * @return Returns the value of the drag force.
      * @author Joan
      */
-    public double drag (double r, double t, double theta){
+    public double drag(double r, double t, double theta) {
         double drag;
         double drag_coeff = 0.09; //Assuming Streamlined half-body shape for the wing
 
-        drag = drag_coeff*2*r*t*1000*278*278*0.5/(cos(theta));
+        drag = drag_coeff * 2 * r * t * 1000 * 278 * 278 * 0.5 / (cos(theta));
         return drag;
     }
+
     /**
-     * This is the optimiser function. It receives the parameters used in the previous iteration, as well as the parameters used in the current iteration.
-     * It generates the parameters to be used in the next iteration.
-     * 
-     * @param lift_drag This is the lift/drag coefficient obtained in the current iteration
-     * @param old_lift_drag This is the lift/drag coefficient obtained in the past iteration
-     * @param old_param This is a vector containing the parameters used in the last iteration
-     * @param current_param This is a vector containing the parameters used in the current iteration
+     * This is the optimiser function. It receives the parameters used in the
+     * previous iteration, as well as the parameters used in the current
+     * iteration. It generates the parameters to be used in the next iteration.
+     *
+     * @param lift_drag This is the lift/drag coefficient obtained in the
+     * current iteration
+     * @param old_lift_drag This is the lift/drag coefficient obtained in the
+     * past iteration
+     * @param old_param This is a vector containing the parameters used in the
+     * last iteration
+     * @param current_param This is a vector containing the parameters used in
+     * the current iteration
      * @return Returns the parameters to be used in the next iteration
      * @author Joan
      */
-    public double[] optimizer (double lift_drag, double old_lift_drag, double[] old_param, double[] current_param, double step[]){
+    public double[] optimizer(double lift_drag, double old_lift_drag, double[] old_param, double[] current_param, double step[]) {
         double[] new_param = new double[5];//param[0]=r, param[1]=t, param[2]=theta, param[3]= turns improving in a row, param[5]=parameter we are going to change i.e. if param[5]=1 that means that we are only increasing/decreasing param[1]
         double current_lift_drag;
         boolean improve = true;
-        
-        current_lift_drag=lift_drag;
-        
-        if (current_lift_drag >= old_lift_drag){
+
+        current_lift_drag = lift_drag;
+
+        if (current_lift_drag >= old_lift_drag) {
             improve = true;
-            new_param[3]=current_param[3] +1;//total turns improving non-stop + 1
+            new_param[3] = current_param[3] + 1;//total turns improving non-stop + 1
         }
-        if (current_lift_drag < old_lift_drag){
+        if (current_lift_drag < old_lift_drag) {
             improve = false;
-            new_param[3]=0; //total turns improving non-stop is now 0 (this turn we didn't get a better result
+            new_param[3] = 0; //total turns improving non-stop is now 0 (this turn we didn't get a better result
         }
-        
-        if (improve == false){
+
+        if (improve == false) {
             for (int i = 0; i < 3; i++) {
-                step[i] = (-1)*step[i];
+                step[i] = (-1) * step[i];
             }
             improve = true;
         }
-        
-        if (improve == true){
+
+        if (improve == true) {
             for (int i = 0; i < 3; i++) {
-                new_param[i]=current_param[i] + step[i]; //we need to create an old_param and a current_param when starting the code for the first time, the difference between old_param[i] and current_param[i] is the step size for each parameter.
+                new_param[i] = current_param[i] + step[i]; //we need to create an old_param and a current_param when starting the code for the first time, the difference between old_param[i] and current_param[i] is the step size for each parameter.
             }
-            if (new_param[2] > 0.52){ //if theta > 30 --> theta = 30 (30 degrees in radians = 0.52 aprox
+            if (new_param[2] > 0.52) { //if theta > 30 --> theta = 30 (30 degrees in radians = 0.52 aprox
                 new_param[2] = 0.52;
             }
-            if (new_param[2] < 0){ //if theta < 0 --> theta = 0
+            if (new_param[2] < 0) { //if theta < 0 --> theta = 0
                 new_param[2] = 0;
             }
         }
 
         return new_param;
     }
+
     /**
      * This is the function that is executed when the button submit is pressed.
      * It starts the optimization process.
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;
-        
+
         this.current_params[0] = Double.parseDouble(r_input.getText());
         this.current_params[1] = Double.parseDouble(t_input.getText());
         this.current_params[2] = Double.parseDouble(angle_input.getText());
-        this.current_params[3] = 0;        
-        
+        this.current_params[3] = 0;
+
         // starts decreasing
         this.step[0] = -0.001;
         this.step[1] = -0.001;
-        this.step[2] = -0.00001;        
-        
-        this.old_params[0] = this.current_params[0] - step[0]; 
-        this.old_params[1] = this.current_params[1] - step[1]; 
-        this.old_params[2] = this.current_params[2] - step[2]; 
+        this.step[2] = -0.00001;
+
+        this.old_params[0] = this.current_params[0] - step[0];
+        this.old_params[1] = this.current_params[1] - step[1];
+        this.old_params[2] = this.current_params[2] - step[2];
         this.old_params[3] = 0;
         this.number_iterations = Integer.parseInt(n_iter.getText());
         int i = 0;
-        
+
         while (i < this.number_iterations) {
-            this.error=false;
+            this.error = false;
             lift = lift(this.current_params[0], this.current_params[1], this.current_params[2]);
             drag = drag(this.current_params[0], this.current_params[1], this.current_params[2]);
-            if (lift < 0){
+            if (lift < 0) {
                 this.error = true;
             }
-            if (drag <= 0){
+            if (drag <= 0) {
                 this.error = true;
             }
-            
+
             //TO DO: if error = true --> send error to GUI, don't do the optimizer step
-            lift_drag = lift/drag;
-            if (this.error == false){
+            lift_drag = lift / drag;
+            if (this.error == false) {
                 this.new_params = optimizer(lift_drag, old_lift_drag, this.old_params, this.current_params, this.step);
-            }            
+            }
             //Saves the data to the database
             /*
-            data = new compData(i,new_params[0], new_params[1], new_params[2], lift_drag);
-            try{
-            dataBase.createNewData(data);
-            }catch(Exception e){
-                System.err.println(e.getMessage());
-            }
-            */
-            System.out.println("Lift: " + lift + "    Drag: " + drag + "   Lift/Drag: " + lift_drag);   
+             data = new compData(i,new_params[0], new_params[1], new_params[2], lift_drag);
+             try{
+             dataBase.createNewData(data);
+             }catch(Exception e){
+             System.err.println(e.getMessage());
+             }
+             */
+            System.out.println("Lift: " + lift + "    Drag: " + drag + "   Lift/Drag: " + lift_drag);
             System.out.println("new_r: " + this.new_params[0] + "   new_t: " + this.new_params[1] + "   new_theta: " + this.new_params[2]);
-            
+
             old_lift_drag = lift_drag;
             this.old_params = this.current_params;
             this.current_params = this.new_params;
+
+            if (!this.first_run) {
+                this.r_input.setText(Double.toString(this.old_params[0]));
+                this.t_input.setText(Double.toString(this.old_params[1]));
+                this.angle_input.setText(Double.toString(this.old_params[2]));
+            }
+            this.first_run = false;
+
             i++;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
