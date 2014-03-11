@@ -29,6 +29,7 @@ public class MainFrame extends javax.swing.JFrame {
     private double[] current_params; // radius, length, angle, default
     private double[] new_params; // radius, length, angle, default
     private boolean stop;
+    private boolean error;
     
     public void transform_data_to_plot(double[][] data_from_db) {
         if(data_from_db.length != 0) {
@@ -336,23 +337,28 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;
         
-        this.old_params[0] = Double.parseDouble(r_input.getText());
-        this.old_params[1] = Double.parseDouble(t_input.getText());
-        this.old_params[2] = Double.parseDouble(angle_input.getText());
-        this.old_params[3] = 0;
-
+        this.current_params[0] = Double.parseDouble(r_input.getText());
+        this.current_params[1] = Double.parseDouble(t_input.getText());
+        this.current_params[2] = Double.parseDouble(angle_input.getText());
+        this.current_params[3] = 0;        
+        
         // starts increasing
-        this.current_params[0] = this.old_params[0] + 0.01; //starts increasing r with a step of 0.01
-        this.current_params[1] = this.old_params[1] + 0.01; //starts increasing t with a step of 0.01
-        this.current_params[2] = this.old_params[2] + 0.0001; //starts increasing theta with a step of 0.001
-        this.current_params[3] = 0;
+        this.old_params[0] = this.current_params[0] - 0.01; //starts increasing r with a step of 0.01
+        this.old_params[1] = this.current_params[1] - 0.01; //starts increasing t with a step of 0.01
+        this.old_params[2] = this.current_params[2] - 0.0001; //starts increasing theta with a step of 0.001
+        this.old_params[3] = 0;
         
         while (!this.stop) {
             
             lift = lift(this.current_params[0], this.current_params[1], this.current_params[2]);
             drag = drag(this.current_params[0], this.current_params[1], this.current_params[2]);
+            //TO DO: CHECK FOR ERRORS: exceptions, waiting for too long
+            //TO DO: if error = true --> send error to GUI, don't do the optimizer step
             lift_drag = lift/drag;
-            this.new_params = optimizer(lift_drag, old_lift_drag, this.old_params, this.current_params);                     
+            if (this.error == false){
+                this.new_params = optimizer(lift_drag, old_lift_drag, this.old_params, this.current_params);
+            }
+            //TO DO: SAVE DATA
             
             System.out.println("Lift: " + lift + "    Drag: " + drag + "   Lift/Drag: " + lift_drag);   
             System.out.println("new_r: " + this.new_params[0] + "   new_t: " + this.new_params[1] + "   new_theta: " + this.new_params[2]);
