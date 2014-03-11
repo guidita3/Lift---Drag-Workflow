@@ -333,17 +333,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
         return new_param;
     }
-        
-    private boolean isNumber(String s) {
-        boolean isNumber = true;
-        try {
-            Double.parseDouble(s);
-        } catch (NumberFormatException e) {
-            isNumber = false;
-            return isNumber;
-        }
-        return isNumber;
-    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;
