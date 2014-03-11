@@ -371,13 +371,13 @@ public class MainFrame extends javax.swing.JFrame {
             if (drag <= 0){
                 this.error = true;
             }
-            //TO DO: CHECK FOR ERRORS: exceptions, waiting for too long
+            
             //TO DO: if error = true --> send error to GUI, don't do the optimizer step
             lift_drag = lift/drag;
             if (this.error == false){
                 this.new_params = optimizer(lift_drag, old_lift_drag, this.old_params, this.current_params);
             }
-            //TO DO: SAVE DATA lift_drag, new_param[0], new_param[1], new_param[2]
+            //Saves the data to the database
             data = new compData(i,new_params[0], new_params[1], new_params[2], lift_drag);
             try{
             dataBase.createNewData(data);
