@@ -352,7 +352,7 @@ public class MainFrame extends javax.swing.JFrame {
             if (drag <= 0) {
                 this.error = true;
             }
-            //TO DO: CHECK FOR ERRORS: exceptions, waiting for too long
+            
             //TO DO: if error = true --> send error to GUI, don't do the optimizer step
             lift_drag = lift / drag;
             if (this.error == false) {
