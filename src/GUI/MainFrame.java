@@ -6,6 +6,8 @@
 
 package GUI;
 
+import Logic.compData;
+import Persistence.DataDB;
 import java.awt.Color;
 import static java.lang.StrictMath.cos;
 import static java.lang.StrictMath.exp;
@@ -30,6 +32,8 @@ public class MainFrame extends javax.swing.JFrame {
     private double[] new_params; // radius, length, angle, default
     private int number_iterations;
     private boolean error;
+    private compData data;
+    private DataDB dataBase = new DataDB();
     
     public void transform_data_to_plot(double[][] data_from_db) {
         if(data_from_db.length != 0) {
@@ -373,7 +377,13 @@ public class MainFrame extends javax.swing.JFrame {
             if (this.error == false){
                 this.new_params = optimizer(lift_drag, old_lift_drag, this.old_params, this.current_params);
             }
-            //TO DO: SAVE DATA
+            //TO DO: SAVE DATA lift_drag, new_param[0], new_param[1], new_param[2]
+            data = new compData(i,new_params[0], new_params[1], new_params[2], lift_drag);
+            try{
+            dataBase.createNewData(data);
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
             
             System.out.println("Lift: " + lift + "    Drag: " + drag + "   Lift/Drag: " + lift_drag);   
             System.out.println("new_r: " + this.new_params[0] + "   new_t: " + this.new_params[1] + "   new_theta: " + this.new_params[2]);
