@@ -260,7 +260,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * This function calculates the lift force of the wing.
+     * It uses SI units, and takes example values for the speed, air density and drag coefficient for a BAC lightning.
+     * @param r This is the width of the wing.
+     * @param t This is the lenght of the wing.
+     * @param theta This is the angle of attack.
+     * @return Returns the value of the lift force.
+     * @author Joan
+     */
     public double lift(double r, double t, double theta){
         double lift;
         double lift_coeff;
@@ -270,7 +278,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         return lift;
     }
-    
+    /**
+     * This function calculates the drag force of the wing.
+     * It uses SI units, and takes example values for the speed, air density and drag coefficient for a BAC lightning.
+     * 
+     * @param r This is the width of the wing.
+     * @param t This is the length of the wing.
+     * @param theta This is the angle of attack.
+     * @return Returns the value of the drag force.
+     * @author Joan
+     */
     public double drag (double r, double t, double theta){
         double drag;
         double drag_coeff = 0.09; //Assuming Streamlined half-body shape for the wing
@@ -278,7 +295,17 @@ public class MainFrame extends javax.swing.JFrame {
         drag = drag_coeff*2*r*t*1000*278*278*0.5/(cos(theta));
         return drag;
     }
-    
+    /**
+     * This is the optimiser function. It receives the parameters used in the previous iteration, as well as the parameters used in the current iteration.
+     * It generates the parameters to be used in the next iteration.
+     * 
+     * @param lift_drag This is the lift/drag coefficient obtained in the current iteration
+     * @param old_lift_drag This is the lift/drag coefficient obtained in the past iteration
+     * @param old_param This is a vector containing the parameters used in the last iteration
+     * @param current_param This is a vector containing the parameters used in the current iteration
+     * @return Returns the parameters to be used in the next iteration
+     * @author Joan
+     */
     public double[] optimizer (double lift_drag, double old_lift_drag, double[] old_param, double[] current_param){
         double[] new_param = new double[5];//param[0]=r, param[1]=t, param[2]=theta, param[3]= turns improving in a row, param[5]=parameter we are going to change i.e. if param[5]=1 that means that we are only increasing/decreasing param[1]
         double current_lift_drag;
@@ -319,7 +346,12 @@ public class MainFrame extends javax.swing.JFrame {
         }
         return new_param;
     }
-
+    /**
+     * This is the function that is executed when the button submit is pressed.
+     * It starts the optimization process.
+     * 
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;
         
@@ -329,15 +361,15 @@ public class MainFrame extends javax.swing.JFrame {
         this.current_params[3] = 0;        
         
         // starts increasing
-        this.old_params[0] = this.current_params[0] - 0.01; //starts increasing r with a step of 0.01
-        this.old_params[1] = this.current_params[1] - 0.01; //starts increasing t with a step of 0.01
-        this.old_params[2] = this.current_params[2] - 0.0001; //starts increasing theta with a step of 0.001
+        this.old_params[0] = this.current_params[0] - 0.001; //starts increasing r with a step of 0.01
+        this.old_params[1] = this.current_params[1] - 0.001; //starts increasing t with a step of 0.01
+        this.old_params[2] = this.current_params[2] - 0.00001; //starts increasing theta with a step of 0.001
         this.old_params[3] = 0;
         this.number_iterations = Integer.parseInt(n_iter.getText());
         int i = 0;
         
         while (i < this.number_iterations) {
-            
+            this.error=false;
             lift = lift(this.current_params[0], this.current_params[1], this.current_params[2]);
             drag = drag(this.current_params[0], this.current_params[1], this.current_params[2]);
             if (lift < 0){
