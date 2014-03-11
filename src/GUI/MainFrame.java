@@ -321,14 +321,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;
 
-        if (!this.first_run) {
-            this.r_input.setText(Double.toString(this.old_params[0]));
-            this.t_input.setText(Double.toString(this.old_params[1]));
-            this.angle_input.setText(Double.toString(this.old_params[2]));
-        }
-
-        this.first_run = false;
-
         this.current_params[0] = Double.parseDouble(r_input.getText());
         this.current_params[1] = Double.parseDouble(t_input.getText());
         this.current_params[2] = Double.parseDouble(angle_input.getText());
@@ -373,6 +365,14 @@ public class MainFrame extends javax.swing.JFrame {
                 this.current_params = this.new_params;
             }
 
+            if (!this.first_run) {
+                this.r_input.setText(Double.toString(this.old_params[0]));
+                this.t_input.setText(Double.toString(this.old_params[1]));
+                this.angle_input.setText(Double.toString(this.old_params[2]));
+            }
+
+            this.first_run = false;
+            
             i++;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
