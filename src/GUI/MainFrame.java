@@ -333,6 +333,17 @@ public class MainFrame extends javax.swing.JFrame {
         }
         return new_param;
     }
+        
+    private boolean isNumber(String s) {
+        boolean isNumber = true;
+        try {
+            Double.parseDouble(s);
+        } catch (NumberFormatException e) {
+            isNumber = false;
+            return isNumber;
+        }
+        return isNumber;
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;
@@ -352,6 +363,12 @@ public class MainFrame extends javax.swing.JFrame {
             
             lift = lift(this.current_params[0], this.current_params[1], this.current_params[2]);
             drag = drag(this.current_params[0], this.current_params[1], this.current_params[2]);
+            if (lift < 0){
+                this.error = true;
+            }
+            if (drag <= 0){
+                this.error = true;
+            }
             //TO DO: CHECK FOR ERRORS: exceptions, waiting for too long
             //TO DO: if error = true --> send error to GUI, don't do the optimizer step
             lift_drag = lift/drag;
