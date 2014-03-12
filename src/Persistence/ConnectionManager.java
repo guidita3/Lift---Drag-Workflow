@@ -31,6 +31,7 @@ public class ConnectionManager {
                 dbcon = DriverManager.getConnection(sourceURL);
             } catch (SQLException e) {
                 throw new Exception("DB_CONNECT_ERROR");
+                //throw e;
             }
         }
     }
@@ -61,7 +62,8 @@ public class ConnectionManager {
                 Statement statement = dbcon.createStatement();
                 statement.executeUpdate(sql);
             } catch (SQLException e) {
-                throw new Exception("DB_WRITE_ERROR");
+                //throw new Exception("DB_WRITE_ERROR");
+                throw e;
             }
         }
     }

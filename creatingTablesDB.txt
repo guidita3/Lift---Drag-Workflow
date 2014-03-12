@@ -1,0 +1,16 @@
+--Create user table--
+CREATE TABLE USERS(
+    USERID int IDENTITY UNIQUE NOT NULL,
+    USERNAME varchar UNIQUE NOT NULL,
+    PASSWORD varchar NOT NULL
+)
+
+--Create data table--
+
+CREATE TABLE BACKUP(
+    ITERATION int IDENTITY NOT NULL,
+    R double NOT NULL,
+    T double NOT NULL,
+    THETA double NOT NULL,
+    COEFICIENT double NOT NULL
+)

@@ -5,12 +5,15 @@
  */
 package GUI;
 
+import Logic.InitialiseDB;
 import Logic.compData;
 import Persistence.DataDB;
 import java.awt.Color;
 import static java.lang.StrictMath.cos;
 import static java.lang.StrictMath.exp;
 import static java.lang.StrictMath.sin;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -30,7 +33,11 @@ public class MainFrame extends javax.swing.JFrame {
     private int number_iterations;
     private boolean error;
     private compData data;
-    private DataDB dataBase = new DataDB();
+    
+    
+    private DataDB dataBase;
+    
+    
     private boolean first_run;
 
     public void transform_data_to_plot(double[][] data_from_db) {
@@ -71,6 +78,12 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public MainFrame() {
+        try {
+            this.dataBase = new DataDB();
+        } catch (Exception ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         initComponents();
         setBackground(Color.white);
         this.old_params = new double[4];
@@ -381,6 +394,10 @@ public class MainFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        /* Initialises the DB */
+        InitialiseDB init = new InitialiseDB();
+        init.init();
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -404,7 +421,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form */  
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainFrame().setVisible(true);
