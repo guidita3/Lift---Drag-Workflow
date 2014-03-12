@@ -10,6 +10,14 @@ import java.sql.*;
 public class UserDB {
 
     protected ConnectionManager connManager;
+    
+    /**
+     * Default constructor
+     * @throws Exception 
+     */
+    public UserDB()throws Exception{
+        connManager = new ConnectionManager("aerofoil");
+    }
 
     /**
      * It creates a new user in the DB.

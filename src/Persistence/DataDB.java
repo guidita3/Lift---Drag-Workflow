@@ -11,6 +11,10 @@ public class DataDB {
 
     protected ConnectionManager connManager;
     
+    /**
+     * Default constructor
+     * @throws Exception 
+     */
     public DataDB()throws Exception{
         connManager = new ConnectionManager("aerofoil");
     }
