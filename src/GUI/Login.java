@@ -135,9 +135,9 @@ public class Login extends javax.swing.JFrame {
         jLabelError.setVisible(false);
         jLabelErrorDB.setVisible(false);
         
-        this.setVisible(false);
-        this.mafr.setVisible(true);
-        /*
+       // this.setVisible(false);
+       // this.mafr.setVisible(true);
+        
         try {
             if( new LoginLogic().checkUserAndPassword(userName,passw) == false)
              {
@@ -149,8 +149,8 @@ public class Login extends javax.swing.JFrame {
             //Username and password correct
             else 
             {
-                this.setVisible(false);
-                
+               this.setVisible(false);
+               this.mafr.setVisible(true);      
             }
                 
         } catch (Exception e) 
@@ -159,7 +159,7 @@ public class Login extends javax.swing.JFrame {
              jLabelErrorDB.setVisible(true);
              jTextUsername.setText("");
              jTextPassword.setText("");
-            }*/
+            }
 
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
