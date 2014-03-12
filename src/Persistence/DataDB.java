@@ -4,12 +4,16 @@ import java.sql.*;
 import Logic.compData;
 
 /**
- * Class to manipulate BACKUP table. This is the table where the results are stored.
+ * Class to manipulate BACKUP table. This is the table where the results from the computation are stored.
  * @author Miguel Angel Grimaldos
  */
 public class DataDB {
 
     protected ConnectionManager connManager;
+    
+    public DataDB()throws Exception{
+        connManager = new ConnectionManager("aerofoil");
+    }
 
     /**
      * It introduces new data in the DB.
@@ -23,7 +27,7 @@ public class DataDB {
             connManager.updateDB("insert into BACKUP (ITERATION, R, T, THETA, COEFICIENT) "
                     + "values ('" + data.getIteration() + "', '" + data.getR() 
                     + "', '" + data.getT() + "', '" + data.getTheta() + "', '"
-                    + data.getCoeficient() + "'");
+                    + data.getCoeficient() + "')");
 
             connManager.close();
         } catch (Exception e) {

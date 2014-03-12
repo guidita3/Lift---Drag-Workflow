@@ -6,20 +6,21 @@
 
 package Logic;
 
+import java.io.IOException;
 import java.sql.*;
 
 /**
  * Class that initialises the DB at the beginning of the execution.
  * @author Miguel Angel Grimaldos
  */
-public class InitialiseDB {
+public class InitialiseDB {    
     private static Connection dbcon = null;
     
     /**
-     * Clean the database from old data.
-     * @param args 
+     * Runs and cleans the database from old data.
      */
-    public static void main(String args[]){
+    public void init(){
+        
         try{
             Class.forName ("org.hsqldb.jdbcDriver");
         }catch(ClassNotFoundException e){
