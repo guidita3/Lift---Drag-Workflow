@@ -23,7 +23,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  * @author Pereira
  */
 public class MainFrame extends javax.swing.JFrame {
-
+    
     private double[] old_params; // radius, length, angle, default
     private double[] current_params; // radius, length, angle, default
     private double[] new_params; // radius, length, angle, default
@@ -33,6 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
     private compData data;
     private DataDB dataBase;
     private boolean first_run;
+    private int number = 0;
 
     public void transform_data_to_plot(double[][] data_from_db) {
         if (data_from_db.length != 0) {
@@ -406,7 +407,7 @@ public class MainFrame extends javax.swing.JFrame {
                 this.new_params = optimizer(lift_drag, old_lift_drag, this.old_params, this.current_params, this.step, p);
             }     
             //Saves the data to the database
-            data = new compData(i,new_params[0], new_params[1], new_params[2], lift_drag);
+            data = new compData(number,new_params[0], new_params[1], new_params[2], lift_drag);
             try{
                 dataBase.createNewData(data);
             }catch(Exception e){
@@ -427,6 +428,7 @@ public class MainFrame extends javax.swing.JFrame {
             this.first_run = false;
 
             i++;
+            number++;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
