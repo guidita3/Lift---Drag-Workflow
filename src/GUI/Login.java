@@ -14,13 +14,13 @@ import Logic.InitialiseDB;
  */
 public class Login extends javax.swing.JFrame {
 
-    
+    private MainFrame mafr;
     /**
      * Creates new form NewJFrame
      */
     public Login() {
         initComponents();
-        
+        this.mafr = new MainFrame();
     }
 
     /**
@@ -133,8 +133,7 @@ public class Login extends javax.swing.JFrame {
         jLabelErrorDB.setVisible(false);
         
         this.setVisible(false);
-        MainFrame mf = new MainFrame();
-        mf.setVisible(true);
+        this.mafr.setVisible(true);
         /*
         try {
             if( new LoginLogic().checkUserAndPassword(userName,passw) == false)
