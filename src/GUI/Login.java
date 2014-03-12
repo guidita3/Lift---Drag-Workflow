@@ -136,10 +136,10 @@ public class Login extends javax.swing.JFrame {
         jLabelErrorDB.setVisible(false);
         
         //Comment to test database
-        //this.setVisible(false);
-        //this.mafr.setVisible(true);
+        this.setVisible(false);
+        this.mafr.setVisible(true);
         
-        
+        /*
         try {
             if( new LoginLogic().checkUserAndPassword(userName,passw) == false)
              {
@@ -164,7 +164,9 @@ public class Login extends javax.swing.JFrame {
              jTextUsername.setText("");
              jTextPassword.setText("");
              */
+            /*
             }
+            */
 
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
