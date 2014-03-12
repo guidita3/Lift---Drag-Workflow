@@ -38,6 +38,7 @@ public class UserDB {
      * Check if a certain Username exists already in the DB.
      * @param userName Username we want to check
      * @return Whether the username exists or not
+     * @throws SQLException 
      * @throws Exception 
      */
     public boolean userNameExists(String userName) throws Exception {
@@ -57,6 +58,13 @@ public class UserDB {
         }
     }
     
+    /**
+     * Looks for information in the DB given a Username.
+     * @param userName Username we want to get the info about
+     * @return Information related with the Username given. Null if it doesn't exist
+     * @throws SQLException 
+     * @throws Exception 
+     */
     public compUser findPersonbyUserName(String userName) throws Exception {
         try {
 

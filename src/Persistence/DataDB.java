@@ -4,7 +4,7 @@ import java.sql.*;
 import Logic.compData;
 
 /**
- * Class to manipulate BACKUP table. This is the table where the results are stored.
+ * Class to manipulate BACKUP table. This is the table where the results from the computation are stored.
  * @author Miguel Angel Grimaldos
  */
 public class DataDB {

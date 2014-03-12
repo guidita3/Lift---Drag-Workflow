@@ -18,7 +18,6 @@ public class InitialiseDB {
     
     /**
      * Runs and cleans the database from old data.
-     * @param args 
      */
     public void init(){
         
