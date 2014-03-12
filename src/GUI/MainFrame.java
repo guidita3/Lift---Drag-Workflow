@@ -34,6 +34,7 @@ public class MainFrame extends javax.swing.JFrame {
     private DataDB dataBase;
     private boolean first_run;
     private int number = 0;
+    private XYSeries series;
 
     public void transform_data_to_plot(double[][] data_from_db) {
         if (data_from_db.length != 0) {
@@ -49,24 +50,20 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    public void drawChart(double[][] data_chart) {
-        XYSeries series = new XYSeries("XYGraph");
-        for (double[] data_chart1 : data_chart) {
-            series.add(data_chart1[0], data_chart1[1]);
-        }
-
+    public void drawChart() {
         XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(series);
+        dataset.addSeries(this.series);
 
         JFreeChart chart = ChartFactory.createXYLineChart("", "Iteration number", "Lift/Drag", dataset, PlotOrientation.VERTICAL, true, true, false);
 
         ChartPanel CP = new ChartPanel(chart);
-        chart_panel.setSize(100, 100);
+        //chart_panel.setSize(400, 400);
         chart_panel.setLayout(new java.awt.BorderLayout());
         chart_panel.add(CP);
         chart_panel.setVisible(true);
         chart_panel.validate();
-
+        chart_panel.repaint();
+        chart_panel.revalidate();
     }
 
     /**
@@ -85,12 +82,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.new_params = new double[4];
         this.step = new double[3];
         this.first_run = true;
-        double[][] arr = new double[3][3];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i][0] = i;
-            arr[i][1] = i + 2;
-        }
-        drawChart(arr);
+        this.series = new XYSeries("XYGraph");
     }
 
     /**
@@ -426,7 +418,11 @@ public class MainFrame extends javax.swing.JFrame {
                 this.angle_input.setText(Double.toString(this.old_params[2]));
             }
             this.first_run = false;
-
+            // Re-plot
+            this.series.add(number, old_lift_drag);
+            drawChart();
+            repaint();
+            revalidate();
             i++;
             number++;
         }
