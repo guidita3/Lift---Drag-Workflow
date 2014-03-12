@@ -1,7 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package Logic;
 
 import Persistence.UserDB;
@@ -12,6 +10,15 @@ import Persistence.UserDB;
  */
 public class LoginLogic {
     
+    
+    /**
+     * Function that checks if the username and password given exist together
+     * in the database, so the user could accede to the system.
+     * @param userName String containing the username to be checked
+     * @param Passw String containing the password to be checked
+     * @return {@code true} if the user can accede and {@code false} if not
+     * @throws Exception
+     */
     public boolean checkUserAndPassword(String userName, String Passw) throws Exception{
         try {
             //Check if the username exists in the database
