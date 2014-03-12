@@ -4,7 +4,7 @@ Lift---Drag-Workflow
 Project of the module of Applications in High End Computing
 
 In order to run the program we will need to execute the database server first.
-This can be easily done executing the runAirfoil.sh or runAirfoil.bat scripts for unix/windows systems.
+This can be easily done executing the runAerofoil.sh or runAerofoil.bat scripts for unix/windows systems.
 
 After this we will have to connect the database with the program. We can do it following the next instructions:
 
