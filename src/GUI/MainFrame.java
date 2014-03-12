@@ -406,14 +406,12 @@ public class MainFrame extends javax.swing.JFrame {
                 this.new_params = optimizer(lift_drag, old_lift_drag, this.old_params, this.current_params, this.step, p);
             }     
             //Saves the data to the database
-            /*
-             data = new compData(i,new_params[0], new_params[1], new_params[2], lift_drag);
-             try{
-             dataBase.createNewData(data);
-             }catch(Exception e){
-             System.err.println(e.getMessage());
-             }
-             */
+            data = new compData(i,new_params[0], new_params[1], new_params[2], lift_drag);
+            try{
+                dataBase.createNewData(data);
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
             System.out.println("Lift: " + lift + "    Drag: " + drag + "   Lift/Drag: " + lift_drag);
             System.out.println("new_r: " + this.new_params[0] + "   new_t: " + this.new_params[1] + "   new_theta: " + this.new_params[2]);
 
