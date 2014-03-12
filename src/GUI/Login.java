@@ -3,10 +3,6 @@ package GUI;
 import Logic.LoginLogic;
 import Logic.InitialiseDB;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -126,6 +122,13 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    /**
+     * Fuction to be performed if the {@code Login button} is pressed.
+     * <p>It will read the username and password introduced and check with the
+     * database if the user is registered to let him/her accede to the system.
+     * @param evt
+     */
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         String userName = jTextUsername.getText();
         String passw = jTextPassword.getText();
