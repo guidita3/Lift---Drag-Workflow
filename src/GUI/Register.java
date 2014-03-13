@@ -142,6 +142,12 @@ public class Register extends javax.swing.JDialog {
         String passwconf = new String(a);
 
         jLabelError.setVisible(false);
+        if( userName.isEmpty())
+        {
+            jLabelError.setText("Please introduce an username");
+            jLabelError.setVisible(true);
+        }
+        else
         if (passw.isEmpty() || passwconf.isEmpty()) 
         {
             jLabelError.setText("Please introduce a password");
