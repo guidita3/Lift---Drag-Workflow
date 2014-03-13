@@ -14,8 +14,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author Pereira
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class compUserTest {
     
@@ -45,11 +47,13 @@ public class compUserTest {
     public void testGetSalt() {
         System.out.println("getSalt");
         compUser instance = new compUser();
-        String expResult = "";
         String result = instance.getSalt();
+        assertNull(result);
+        
+        instance = new compUser("user", "password", "[B@460dab4d");
+        result = instance.getSalt();
+        String expResult = "[B@460dab4d";
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -59,11 +63,13 @@ public class compUserTest {
     public void testGetUsername() {
         System.out.println("getUsername");
         compUser instance = new compUser();
-        String expResult = "";
         String result = instance.getUsername();
+        assertNull(result);
+        
+        instance = new compUser("user", "password", "[B@460dab4d");
+        result = instance.getUsername();
+        String expResult = "user";
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -73,11 +79,13 @@ public class compUserTest {
     public void testGetPassword() {
         System.out.println("getPassword");
         compUser instance = new compUser();
-        String expResult = "";
         String result = instance.getPassword();
+        assertNull(result);
+        
+        instance = new compUser("user", "password", "[B@460dab4d");
+        result = instance.getPassword();
+        String expResult = "password";
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
