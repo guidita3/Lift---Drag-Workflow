@@ -20,7 +20,10 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  *
- * @author Pereira
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class MainFrame extends javax.swing.JFrame {
 

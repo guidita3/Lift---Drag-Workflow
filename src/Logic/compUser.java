@@ -2,7 +2,10 @@ package Logic;
 
 /**
  * Data structure to store the info related with the user.
- * @author Miguel Angel Grimaldos
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class compUser {
     private String username;

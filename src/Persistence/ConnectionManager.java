@@ -2,7 +2,10 @@ package Persistence;
 
 /**
  * Class used to connect with the DB.
- * @author Miguel Angel Grimaldos
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 import java.sql.*;
 

@@ -7,7 +7,10 @@ package GUI;
 
 /**
  *
- * @author s206689
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class SystemError extends javax.swing.JFrame {
 

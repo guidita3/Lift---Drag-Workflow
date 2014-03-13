@@ -2,7 +2,10 @@ package Logic;
 
 /**
  * Data structure to store the values of r, t and theta and the drag/lift value.
- * @author Miguel Angel Grimaldos
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class compData {
     private int iteration;

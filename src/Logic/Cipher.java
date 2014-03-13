@@ -6,7 +6,10 @@ import java.security.SecureRandom;
 
 /**
  * Class to cipher passwords and make them secure
- * @author Miguel Angel Grimaldos
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class Cipher {
     

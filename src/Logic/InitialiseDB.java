@@ -11,7 +11,10 @@ import java.sql.*;
 
 /**
  * Class that initialises the DB at the beginning of the execution.
- * @author Miguel Angel Grimaldos
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class InitialiseDB {    
     private static Connection dbcon = null;

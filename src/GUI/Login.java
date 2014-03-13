@@ -6,8 +6,13 @@ import java.awt.Dialog;
 
 
 /**
- *
- * @author s206689
+ * Login GUI
+ * <p> The user can accede to the system introducing his/her username and
+ * password if it was registered before, or create a new user
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class Login extends javax.swing.JFrame {
     
@@ -150,10 +155,6 @@ public class Login extends javax.swing.JFrame {
 
         jLabelError.setVisible(false);
 
-        //Uncomment to test without database
-        //this.setVisible(false);
-        //this.mafr.setVisible(true);
-
         try {
             if( new LoginLogic().checkUserAndPassword(userName,passw) == false)
             {
@@ -182,7 +183,6 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
-    
     
     
     /**

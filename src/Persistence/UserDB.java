@@ -5,7 +5,10 @@ import java.sql.*;
 
 /**
  * Class to manipulate USERS table. This is the table where the user names and passwords are stored.
- * @author Miguel Angel Grimaldos
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class UserDB {
 

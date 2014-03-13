@@ -8,7 +8,10 @@ import Logic.LoginLogic;
  * Register GUI for user registration
  * <p> It asks the user for a username and a password twice (to confirm it)
  * and register it in the database if that username does not exist already
- * @author Marta
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class Register extends javax.swing.JDialog {
 

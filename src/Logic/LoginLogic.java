@@ -6,7 +6,10 @@ import Persistence.UserDB;
 
 /**
  * Class LoginLogic to communicate Login and Register GUIs with database
- * @author s206689
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class LoginLogic {
     

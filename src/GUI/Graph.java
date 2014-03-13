@@ -14,7 +14,10 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Pereira
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class Graph extends JPanel {
    public Graph() {

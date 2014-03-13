@@ -5,7 +5,10 @@ import Logic.compData;
 
 /**
  * Class to manipulate BACKUP table. This is the table where the results from the computation are stored.
- * @author Miguel Angel Grimaldos
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class DataDB {
 
