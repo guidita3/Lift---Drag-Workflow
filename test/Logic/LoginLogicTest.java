@@ -72,6 +72,7 @@ public class LoginLogicTest {
         assertEquals(expResult, result);
         
         // delete user from DB
+        
     }
 
     /**
