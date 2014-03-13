@@ -53,7 +53,7 @@ public class DataDB {
             connManager.connect();
             
             ResultSet rs = connManager.queryDB("select * "+ "from BACKUP"
-                    + "where ITERATION=(SELECT MAX(ITERATION) FROM BACKUP)");
+                    + " where ITERATION=(SELECT MAX(ITERATION) FROM BACKUP)");
             connManager.close();
             try {
                 if (rs.next()) {
