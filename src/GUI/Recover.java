@@ -125,7 +125,7 @@ public class Recover extends javax.swing.JDialog {
      * @param evt
      */  
     private void jButtonNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNoActionPerformed
-       
+       this.dispose();
     }//GEN-LAST:event_jButtonNoActionPerformed
 
     /**
