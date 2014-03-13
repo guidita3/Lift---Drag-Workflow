@@ -32,7 +32,7 @@ public class UserDB {
                 
                 connManager.connect();
                 
-                connManager.updateDB("insert into USERS (USERNAME, PASSWORD) "
+                connManager.updateDB("insert into USERS (USERID, USERNAME, PASSWORD) "
                         + "values ('" + userID + "', '" + userName + "', '" + password + "')");
 
                 connManager.close();
