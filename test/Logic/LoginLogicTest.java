@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package Logic;
 
@@ -15,8 +11,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author Pereira
+ * Test for class LoginLogic
+ * @author Joan Francesc
+ * @author Miguel Angel Grimaldos 
+ * @author Margarida Pereira
+ * @author Marta Vitores
  */
 public class LoginLogicTest {
     
@@ -45,22 +44,24 @@ public class LoginLogicTest {
     @Test
     public void testCheckUserAndPassword() throws Exception {
         System.out.println("checkUserAndPassword");
+        
+        //Create variables for the test
         String userName = "testUser";
         String Passw = "testPass";
         LoginLogic instance = new LoginLogic();
-        boolean expResult = false;
-        boolean result = instance.checkUserAndPassword(userName, Passw);
-        assertEquals(expResult, result);
         
-        // add user to DB with userName and Passw
+        //Add user to DB with testUser and testPass if it does not exist already
         boolean exist = new UserDB().userNameExists(userName);
-
-       if (!exist) {
+        if (!exist) {
            String salt = Cipher.getSalt();
            String passHashed = Cipher.getSecurePassword(Passw, salt);
            new UserDB().createRegisteredUser(userName, passHashed, salt);
-       }
-
+        }      
+        
+        //////////Test for checkUserAndPassword////////
+        boolean result = instance.checkUserAndPassword(userName, Passw);
+        boolean expResult = false;
+        
         result = instance.checkUserAndPassword(userName, "different_password");
         assertEquals(expResult, result);
         
@@ -71,24 +72,55 @@ public class LoginLogicTest {
         result = instance.checkUserAndPassword(userName, Passw);
         assertEquals(expResult, result);
         
-        // delete user from DB
-        
+        //Delete user testUser from DB
+        new UserDB().deleteRegisteredUser(userName);
     }
 
+    
     /**
      * Test of RegisterUser method, of class LoginLogic.
      */
     @Test
+    
     public void testRegisterUser() throws Exception {
         System.out.println("RegisterUser");
-        String userName = "";
-        String Passw = "";
+        
+        //Create variables for the test
+        String userName = "testUser";
+        String Passw = "testPass";
         LoginLogic instance = new LoginLogic();
+        
+        //Add user to DB with testUser and testPass if it does not exist already
+        boolean exist = new UserDB().userNameExists(userName);
+        if (!exist) {
+           String salt = Cipher.getSalt();
+           String passHashed = Cipher.getSecurePassword(Passw, salt);
+           new UserDB().createRegisteredUser(userName, passHashed, salt);
+        }  
+        
+        //////////Test for RegisterUser////////
         boolean expResult = false;
+        //The user already exists so RegisterUser should return false
         boolean result = instance.RegisterUser(userName, Passw);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        
+        //Delete user testUser from DB
+        new UserDB().deleteRegisteredUser(userName);
+        
+        
+        expResult = true;
+        //The user has been deleted, it does not exist, so RegisterUser should 
+        //register it and return true
+        result = instance.RegisterUser(userName, Passw);
+        assertEquals(expResult, result);
+        //Check if it was registered correctly
+        exist = new UserDB().userNameExists(userName);
+        assertEquals(expResult, exist);
+        
+        //Delete user testUser from DB
+        new UserDB().deleteRegisteredUser(userName);        
+        
     }
     
 }
