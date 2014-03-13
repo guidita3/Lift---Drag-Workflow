@@ -1,13 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package GUI;
 
 import Logic.LoginLogic;
 
 /**
- *
+ * Register GUI for user registration
+ * <p> It asks the user for a username and a password twice (to confirm it)
+ * and register it in the database if that username does not exist already
  * @author Marta
  */
 public class Register extends javax.swing.JDialog {
@@ -142,6 +142,12 @@ public class Register extends javax.swing.JDialog {
         String passwconf = new String(a);
 
         jLabelError.setVisible(false);
+        if( userName.isEmpty())
+        {
+            jLabelError.setText("Please introduce an username");
+            jLabelError.setVisible(true);
+        }
+        else
         if (passw.isEmpty() || passwconf.isEmpty()) 
         {
             jLabelError.setText("Please introduce a password");
@@ -170,7 +176,6 @@ public class Register extends javax.swing.JDialog {
                 jTextUsername.setText("");
                 jPasswordFieldNew.setText("");
                 jPasswordFieldConf.setText("");
-                System.err.println(e.getMessage());
             }
         }
         else
@@ -183,6 +188,7 @@ public class Register extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jButtonRegActionPerformed
 
+    
     /**
      * Fuction to be performed if the {@code Cancel button} is pressed.
      * <p>It will close the registration window.

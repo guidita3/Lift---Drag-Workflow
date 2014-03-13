@@ -55,15 +55,15 @@ public class MainFrameTest {
     @Test
     public void testLift() {
         System.out.println("lift");
-        double r = 0.0;
-        double t = 0.0;
-        double theta = 0.0;
+        double r = 1.0;
+        double t = 1.0;
+        double theta = 0.5;
         MainFrame instance = new MainFrame();
-        double expResult = 0.0;
+        double expResult = 2.72704339942458E8 ;
         double result = instance.lift(r, t, theta);
-        assertEquals(expResult, result, 0.0);
+        assertEquals(expResult, result, 1000);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -72,34 +72,188 @@ public class MainFrameTest {
     @Test
     public void testDrag() {
         System.out.println("drag");
-        double r = 0.0;
-        double t = 0.0;
-        double theta = 0.0;
+        double r = 1.0;
+        double t = 1.0;
+        double theta = 0.5;
         MainFrame instance = new MainFrame();
-        double expResult = 0.0;
+        double expResult = 7925818.381141541;
         double result = instance.drag(r, t, theta);
-        assertEquals(expResult, result, 0.0);
+        assertEquals(expResult, result, 1000);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
-    /**
+  /**
      * Test of optimizer method, of class MainFrame.
      */
     @Test
     public void testOptimizer() {
         System.out.println("optimizer");
-        double lift_drag = 0.0;
+        double lift_drag = 1.0;
         double old_lift_drag = 0.0;
-        double[] old_param = null;
-        double[] current_param = null;
-        double[] step = null;
+        double[] old_params = new double[4];
+        double[] current_params = new double[4];
+        double[] step = new double[3];
+        double[] result = new double[4];
         int p = 0;
         MainFrame instance = new MainFrame();
-        double[] expResult = null;
-        double[] result = instance.optimizer(lift_drag, old_lift_drag, old_param, current_param, step, p);
-        //assertArrayEquals(expResult, result);
         
+        //first set of tests (improving lift_drag)
+        step[0] = 0.001;
+        step[1] = 0.001;
+        step[2] = 0.00001;
+        
+        current_params[0] = 1.0;
+        current_params[1] = 1.0;
+        current_params[2] = 0.5;
+        current_params[3] = 0.0;
+
+        old_params[0] = current_params[0] - step[0];
+        old_params[1] = current_params[1] - step[1];
+        old_params[2] = current_params[2] - step[2];
+        old_params[3] = 0;
+        
+        double[] expResult = new double[4];
+        expResult[0] = 1.001;
+        expResult[1] = 1.0;
+        expResult[2] = 0.5;
+        expResult[3] = 1.0;
+        
+        result = instance.optimizer(lift_drag, old_lift_drag, old_params, current_params, step, p);
+        org.junit.Assert.assertEquals(expResult[0], result[0], 1000);
+        org.junit.Assert.assertEquals(expResult[1], result[1], 1000);
+        org.junit.Assert.assertEquals(expResult[2], result[2], 0.01);
+        org.junit.Assert.assertEquals(expResult[3], result[3], 0.1);
+        
+        
+        lift_drag = 1.0;
+        old_lift_drag = 0.0;
+        p = 1;
+        
+        current_params[0] = 1.0;
+        current_params[1] = 1.0;
+        current_params[2] = 0.5;
+        current_params[3] = 0.0;
+
+        old_params[0] = current_params[0] - step[0];
+        old_params[1] = current_params[1] - step[1];
+        old_params[2] = current_params[2] - step[2];
+        old_params[3] = 0;
+        
+        expResult[0] = 1.0;
+        expResult[1] = 1.001;
+        expResult[2] = 0.5;
+        expResult[3] = 1.0;
+        
+        result = instance.optimizer(lift_drag, old_lift_drag, old_params, current_params, step, p);
+        org.junit.Assert.assertEquals(expResult[0], result[0], 1000);
+        org.junit.Assert.assertEquals(expResult[1], result[1], 1000);
+        org.junit.Assert.assertEquals(expResult[2], result[2], 0.01);
+        org.junit.Assert.assertEquals(expResult[3], result[3], 0.1);
+        
+        
+        lift_drag = 1.0;
+        old_lift_drag = 0.0;
+        p = 2;
+        
+        current_params[0] = 1.0;
+        current_params[1] = 1.0;
+        current_params[2] = 0.5;
+        current_params[3] = 0.0;
+
+        old_params[0] = current_params[0] - step[0];
+        old_params[1] = current_params[1] - step[1];
+        old_params[2] = current_params[2] - step[2];
+        old_params[3] = 0;
+        
+        expResult[0] = 1.0;
+        expResult[1] = 1.0;
+        expResult[2] = 0.500001;
+        expResult[3] = 1.0;
+        
+        result = instance.optimizer(lift_drag, old_lift_drag, old_params, current_params, step, p);
+        org.junit.Assert.assertEquals(expResult[0], result[0], 1000);
+        org.junit.Assert.assertEquals(expResult[1], result[1], 1000);
+        org.junit.Assert.assertEquals(expResult[2], result[2], 0.01);
+        org.junit.Assert.assertEquals(expResult[3], result[3], 0.1);
+        
+        //second test (not improving lift_drag)
+        lift_drag = 1.0;
+        old_lift_drag = 2.0;
+        p = 0;
+        
+        current_params[0] = 1.0;
+        current_params[1] = 1.0;
+        current_params[2] = 0.5;
+        current_params[3] = 0.0;
+
+        old_params[0] = current_params[0] - step[0];
+        old_params[1] = current_params[1] - step[1];
+        old_params[2] = current_params[2] - step[2];
+        old_params[3] = 0;
+        
+        expResult[0] = 0.999;
+        expResult[1] = 1.0;
+        expResult[2] = 0.5;
+        expResult[3] = 0.0;
+        
+        result = instance.optimizer(lift_drag, old_lift_drag, old_params, current_params, step, p);
+        org.junit.Assert.assertEquals(expResult[0], result[0], 1000);
+        org.junit.Assert.assertEquals(expResult[1], result[1], 1000);
+        org.junit.Assert.assertEquals(expResult[2], result[2], 0.01);
+        org.junit.Assert.assertEquals(expResult[3], result[3], 0.1);
+        
+        lift_drag = 1.0;
+        old_lift_drag = 2.0;
+        p = 1;
+        
+        current_params[0] = 1.0;
+        current_params[1] = 1.0;
+        current_params[2] = 0.5;
+        current_params[3] = 0.0;
+
+        old_params[0] = current_params[0] - step[0];
+        old_params[1] = current_params[1] - step[1];
+        old_params[2] = current_params[2] - step[2];
+        old_params[3] = 0;
+        
+        expResult[0] = 1.0;
+        expResult[1] = 0.999;
+        expResult[2] = 0.5;
+        expResult[3] = 0.0;
+        
+        result = instance.optimizer(lift_drag, old_lift_drag, old_params, current_params, step, p);
+        org.junit.Assert.assertEquals(expResult[0], result[0], 1000);
+        org.junit.Assert.assertEquals(expResult[1], result[1], 1000);
+        org.junit.Assert.assertEquals(expResult[2], result[2], 0.01);
+        org.junit.Assert.assertEquals(expResult[3], result[3], 0.1);
+        
+        lift_drag = 1.0;
+        old_lift_drag = 2.0;
+        p = 2;
+        
+        current_params[0] = 1.0;
+        current_params[1] = 1.0;
+        current_params[2] = 0.5;
+        current_params[3] = 0.0;
+
+        old_params[0] = current_params[0] - step[0];
+        old_params[1] = current_params[1] - step[1];
+        old_params[2] = current_params[2] - step[2];
+        old_params[3] = 0;
+        
+        expResult[0] = 1.0;
+        expResult[1] = 1.0;
+        expResult[2] = 0.49999;
+        expResult[3] = 0.0;
+        
+        result = instance.optimizer(lift_drag, old_lift_drag, old_params, current_params, step, p);
+        org.junit.Assert.assertEquals(expResult[0], result[0], 1000);
+        org.junit.Assert.assertEquals(expResult[1], result[1], 1000);
+        org.junit.Assert.assertEquals(expResult[2], result[2], 0.01);
+        org.junit.Assert.assertEquals(expResult[3], result[3], 0.1);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
     }
     
 }
