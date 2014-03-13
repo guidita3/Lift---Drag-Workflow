@@ -39,19 +39,6 @@ public class MainFrameTest {
     }
 
     /**
-     * Test of transform_data_to_plot method, of class MainFrame.
-     */
-    @Test
-    public void testTransform_data_to_plot() {
-        System.out.println("transform_data_to_plot");
-        double[][] data_from_db = null;
-        MainFrame instance = new MainFrame();
-        instance.transform_data_to_plot(data_from_db);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of drawChart method, of class MainFrame.
      */
     @Test
@@ -59,8 +46,7 @@ public class MainFrameTest {
         System.out.println("drawChart");
         MainFrame instance = new MainFrame();
         instance.drawChart();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(instance.isDisplayable());
     }
 
     /**
@@ -113,8 +99,7 @@ public class MainFrameTest {
         double[] expResult = null;
         double[] result = instance.optimizer(lift_drag, old_lift_drag, old_param, current_param, step, p);
         //assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
     
 }
