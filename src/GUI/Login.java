@@ -2,6 +2,7 @@ package GUI;
 
 import Logic.LoginLogic;
 import Logic.InitialiseDB;
+import java.awt.Dialog;
 
 
 /**
@@ -11,12 +12,15 @@ import Logic.InitialiseDB;
 public class Login extends javax.swing.JFrame {
 
     private MainFrame mafr;
+    private Register2 reg;
+    
     /**
      * Creates new form NewJFrame
      */
     public Login() {
         initComponents();
         this.mafr = new MainFrame();
+        this.reg = new Register2();
     }
 
     /**
@@ -35,14 +39,14 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabelError = new javax.swing.JLabel();
-        jLabelErrorDB = new javax.swing.JLabel();
         jPasswordField = new javax.swing.JPasswordField();
+        jButtonRegister = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setName("Login"); // NOI18N
 
-        jButtonLogin.setText("Login");
+        jButtonLogin.setText("Log in");
         jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoginActionPerformed(evt);
@@ -60,17 +64,12 @@ public class Login extends javax.swing.JFrame {
 
         jLabelError.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelError.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelError.setText("Username and/or password incorrect");
         jLabelError.setVisible(false);
 
-        jLabelErrorDB.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabelErrorDB.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelErrorDB.setText("Data base error");
-        jLabelErrorDB.setVisible(false);
-
-        jPasswordField.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRegister.setText("Register");
+        jButtonRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordFieldActionPerformed(evt);
+                jButtonRegisterActionPerformed(evt);
             }
         });
 
@@ -80,17 +79,23 @@ public class Login extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelErrorDB)
-                    .addComponent(jLabelError)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPasswordField, javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabelError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPasswordField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonLogin)
-                        .addComponent(jTextUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonRegister)
+                        .addGap(88, 88, 88))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,11 +111,11 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addComponent(jLabelError)
-                .addGap(3, 3, 3)
-                .addComponent(jLabelErrorDB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonLogin)
+                .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonLogin)
+                    .addComponent(jButtonRegister))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -143,9 +148,8 @@ public class Login extends javax.swing.JFrame {
         String passw = new String(a);
         
         jLabelError.setVisible(false);
-        jLabelErrorDB.setVisible(false);
         
-        //Comment to test database
+        //umcomment to test without database
         //this.setVisible(false);
         //this.mafr.setVisible(true);
         
@@ -154,6 +158,7 @@ public class Login extends javax.swing.JFrame {
             if( new LoginLogic().checkUserAndPassword(userName,passw) == false)
              {
                //Incorrect username or/and password
+               jLabelError.setText("Username and/or password incorrect");
                jLabelError.setVisible(true);
                jTextUsername.setText("");
                jPasswordField.setText("");   
@@ -168,16 +173,25 @@ public class Login extends javax.swing.JFrame {
         } catch (Exception e) 
             {
              //Database error
-             jLabelErrorDB.setVisible(true);
+             jLabelError.setText("Database error");
+             jLabelError.setVisible(true);
              jTextUsername.setText("");
              jPasswordField.setText("");
             }
 
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
-    private void jPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordFieldActionPerformed
+    
+    
+    /**
+     * Fuction to be performed if the {@code Register button} is pressed.
+     * <p>It will open a new window to allow user registration.
+     * @param evt
+     */    
+    private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
+        Register reg = new Register(this,true);
+        reg.setVisible(true);      
+    }//GEN-LAST:event_jButtonRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,11 +233,11 @@ public class Login extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLogin;
+    private javax.swing.JButton jButtonRegister;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelError;
-    private javax.swing.JLabel jLabelErrorDB;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JTextField jTextUsername;
