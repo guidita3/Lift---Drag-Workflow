@@ -59,7 +59,7 @@ public class LoginLogicTest {
         }      
         
         //////////Test for checkUserAndPassword////////
-        boolean result = instance.checkUserAndPassword(userName, Passw);
+        boolean result;
         boolean expResult = false;
         
         result = instance.checkUserAndPassword(userName, "different_password");
