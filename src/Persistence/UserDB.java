@@ -33,11 +33,11 @@ public class UserDB {
                 connManager.connect();
                 
                 connManager.updateDB("insert into USERS (USERNAME, PASSWORD) "
-                        + "values ('" + userID + "', '" + userName + "', '" + password + "'");
+                        + "values ('" + userID + "', '" + userName + "', '" + password + "')");
 
                 connManager.close();
             } else {
-                throw new Exception("USU_REG_EXISTE");
+                throw new Exception("USU_REG_EXISTS");
             }
         } catch (Exception e) {
             throw e;
