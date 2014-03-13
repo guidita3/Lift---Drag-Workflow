@@ -164,6 +164,7 @@ public class Register extends javax.swing.JDialog {
                 jTextUsername.setText("");
                 jPasswordFieldNew.setText("");
                 jPasswordFieldConf.setText("");
+                System.err.println(e.getMessage());
             }
         }
         else
