@@ -139,9 +139,9 @@ public class Login extends javax.swing.JFrame {
      */
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         String userName = jTextUsername.getText().toLowerCase();
-        //String passw = jPasswordField.getText();
         char [] a = jPasswordField.getPassword();
         String passw = new String(a);
+        
         jLabelError.setVisible(false);
         jLabelErrorDB.setVisible(false);
         
