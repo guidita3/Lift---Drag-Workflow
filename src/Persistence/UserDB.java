@@ -27,11 +27,13 @@ public class UserDB {
      */
     public void createRegisteredUser(String userName, String password) throws Exception {
         try {
-            if (this.userNameExists(userName)) {
+            if (!this.userNameExists(userName)) {
+                int userID = findLastUserID() + 1;
+                
                 connManager.connect();
-
+                
                 connManager.updateDB("insert into USERS (USERNAME, PASSWORD) "
-                        + "values ('" + userName + "', '" + password + "'");
+                        + "values ('" + userID + "', '" + userName + "', '" + password + "'");
 
                 connManager.close();
             } else {
@@ -88,6 +90,33 @@ public class UserDB {
                     return user;
                 } else {
                     return null;
+                }
+            } catch (SQLException e) {
+                throw new Exception("DB_READ_ERROR");
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    /**
+     * Finds the greatest userID in the DB
+     * @return Greatest userID
+     * @throws Exception 
+     */
+    public int findLastUserID() throws Exception {
+        try {
+
+            connManager.connect();
+            
+            ResultSet rs = connManager.queryDB("SELECT MAX(USERID) FROM USERS");
+            connManager.close();
+            try {
+                if (rs.next()) {
+                    int userID = rs.getInt(1);
+                    return userID;
+                } else {
+                    return -1;
                 }
             } catch (SQLException e) {
                 throw new Exception("DB_READ_ERROR");
