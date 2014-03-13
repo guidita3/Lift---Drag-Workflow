@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Logic;
 
 import org.junit.After;
@@ -44,11 +38,8 @@ public class CipherTest {
     @Test
     public void testGetSalt() throws Exception {
         System.out.println("getSalt");
-        String expResult = "";
         String result = Cipher.getSalt();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
 
     /**
@@ -57,13 +48,11 @@ public class CipherTest {
     @Test
     public void testGetSecurePassword() {
         System.out.println("getSecurePassword");
-        String passwordToHash = "";
-        String salt = "";
-        String expResult = "";
+        String passwordToHash = "password";
+        String salt = "[B@73e171d3";
+        String expResult = "f90276f437977afc0577e06e906a4a2db3e39371";
         String result = Cipher.getSecurePassword(passwordToHash, salt);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
