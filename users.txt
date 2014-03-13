@@ -1,0 +1,4 @@
+USERNAME	PASSWORD
+----------------------------------------
+user 		password
+mysecretuser 	mySecretPassword
