@@ -6,6 +6,7 @@
 
 package Logic;
 
+import Persistence.UserDB;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -52,6 +53,14 @@ public class LoginLogicTest {
         assertEquals(expResult, result);
         
         // add user to DB with userName and Passw
+        boolean exist = new UserDB().userNameExists(userName);
+
+       if (!exist) {
+           String salt = Cipher.getSalt();
+           String passHashed = Cipher.getSecurePassword(Passw, salt);
+           new UserDB().createRegisteredUser(userName, passHashed, salt);
+       }
+
         result = instance.checkUserAndPassword(userName, "different_password");
         assertEquals(expResult, result);
         
@@ -63,6 +72,22 @@ public class LoginLogicTest {
         assertEquals(expResult, result);
         
         // delete user from DB
+    }
+
+    /**
+     * Test of RegisterUser method, of class LoginLogic.
+     */
+    @Test
+    public void testRegisterUser() throws Exception {
+        System.out.println("RegisterUser");
+        String userName = "";
+        String Passw = "";
+        LoginLogic instance = new LoginLogic();
+        boolean expResult = false;
+        boolean result = instance.RegisterUser(userName, Passw);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
 }
