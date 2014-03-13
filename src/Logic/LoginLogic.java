@@ -34,8 +34,10 @@ public class LoginLogic {
             if (exist)
             {
                compUser check = new UserDB().findPersonbyUserName(userName);
-               if ( Passw.equals(check.getPassword()) ) return true;
-                 else return false;      
+               
+               String passHashed = Cipher.getSecurePassword(Passw, check.getSalt());
+               
+               return passHashed.equals(check.getPassword());      
             }
             else return false;
 
@@ -67,7 +69,9 @@ public class LoginLogic {
             if (exist) return false;
             else 
             {
-                new UserDB().createRegisteredUser(userName,Passw);
+                String salt = Cipher.getSalt();
+                String passHashed = Cipher.getSecurePassword(Passw, salt);
+                new UserDB().createRegisteredUser(userName, passHashed, salt);
                 return true;
             }
             

@@ -1,9 +1,10 @@
 --Create user table--
 CREATE TABLE USERS(
-    USERID int IDENTITY UNIQUE NOT NULL,
-    USERNAME varchar UNIQUE NOT NULL,
-    PASSWORD varchar NOT NULL
-)
+    USERNAME varchar(50) UNIQUE NOT NULL,
+    PASSWORD varchar(50) NOT NULL,
+    SALT varchar(50) NOT NULL
+);
+
 
 --Create data table--
 

@@ -25,15 +25,13 @@ public class UserDB {
      * @param password Password of the user
      * @throws Exception 
      */
-    public void createRegisteredUser(String userName, String password) throws Exception {
+    public void createRegisteredUser(String userName, String password, String salt) throws Exception {
         try {
             if (!this.userNameExists(userName)) {
-                int userID = findLastUserID() + 1;
-                
                 connManager.connect();
                 
-                connManager.updateDB("insert into USERS (USERID, USERNAME, PASSWORD) "
-                        + "values ('" + userID + "', '" + userName + "', '" + password + "')");
+                connManager.updateDB("insert into USERS (USERNAME, PASSWORD, SALT) "
+                        + "values ('" + userName + "', '" + password + "', '" + salt + "')");
 
                 connManager.close();
             } else {
@@ -55,7 +53,7 @@ public class UserDB {
         try {
 
             connManager.connect();
-            ResultSet rs = connManager.queryDB("select USERID, USERNAME, PASSWORD "
+            ResultSet rs = connManager.queryDB("select USERNAME, PASSWORD, SALT "
                     + "from USERS where USERNAME= '" + userName + "'");
             connManager.close();
             try {
@@ -80,13 +78,13 @@ public class UserDB {
 
             connManager.connect();
             
-            ResultSet rs = connManager.queryDB("select USERID, USERNAME, PASSWORD "
+            ResultSet rs = connManager.queryDB("select USERNAME, PASSWORD, SALT "
                     + "from USERS where USERNAME= '" + userName + "'");
             connManager.close();
             try {
                 if (rs.next()) {
-                    compUser user = new compUser(rs.getInt("USERID"),
-                            rs.getString("USERNAME"), rs.getString("PASSWORD"));
+                    compUser user = new compUser(rs.getString("USERNAME"), 
+                            rs.getString("PASSWORD"), rs.getString("SALT"));
                     return user;
                 } else {
                     return null;
@@ -99,11 +97,12 @@ public class UserDB {
         }
     }
     
+    /*
     /**
      * Finds the greatest userID in the DB
      * @return Greatest userID
      * @throws Exception 
-     */
+     
     public int findLastUserID() throws Exception {
         try {
 
@@ -125,4 +124,5 @@ public class UserDB {
             throw e;
         }
     }
+    */
 }

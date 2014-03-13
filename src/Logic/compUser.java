@@ -5,33 +5,33 @@ package Logic;
  * @author Miguel Angel Grimaldos
  */
 public class compUser {
-    private int userId;
     private String username;
     private String password;
+    private String salt;
     
     /**
      * Standard constructor
      */
     public compUser(){
-        userId = -1;
         username = null;
         password = null;
+        salt = null;
     }
     
     /**
      * Alternative constructor. It is created with the data given as parameters.
-     * @param userId Number assigned to a user in order to identify him/her
      * @param username Nickname picked by the user
      * @param password User password
+     * @param salt Salt for making more secure the password storage
      */
-    public compUser(int userId, String username, String password){
-        this.userId = userId;
+    public compUser(String username, String password, String salt){
         this.username = username;
         this.password = password;
+        this.salt = salt;
     }
     
-    public double getUserId(){
-        return userId;
+    public String getSalt(){
+        return salt;
     }
     
     public String getUsername(){
