@@ -11,7 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test for class LoginLogic
+ * Tests for class LoginLogic
  * @author Joan Francesc
  * @author Miguel Angel Grimaldos 
  * @author Margarida Pereira

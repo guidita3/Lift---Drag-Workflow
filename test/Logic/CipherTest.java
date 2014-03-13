@@ -1,3 +1,5 @@
+
+
 package Logic;
 
 import org.junit.After;
@@ -8,6 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Tests for class Cipher
  * @author Joan Francesc
  * @author Miguel Angel Grimaldos 
  * @author Margarida Pereira
