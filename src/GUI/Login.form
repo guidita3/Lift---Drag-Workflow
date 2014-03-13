@@ -48,10 +48,10 @@
                       <Component id="jLabel3" alignment="0" min="-2" pref="331" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jLabelError" alignment="0" min="-2" pref="211" max="-2" attributes="0"/>
                           <Component id="jPasswordField" alignment="0" max="32767" attributes="0"/>
                           <Component id="jTextUsername" alignment="0" pref="255" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="jLabelError" min="-2" pref="274" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
