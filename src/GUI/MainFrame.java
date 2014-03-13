@@ -43,6 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     public void drawChart() {
         XYSeriesCollection dataset = new XYSeriesCollection();
+
         dataset.addSeries(this.series);
 
         JFreeChart chart = ChartFactory.createXYLineChart("", "Iteration number", "Lift/Drag", dataset, PlotOrientation.VERTICAL, true, true, false);
@@ -422,7 +423,12 @@ public class MainFrame extends javax.swing.JFrame {
                 this.current_params = this.new_params;
                 
                 // Re-plot
+                if (this.series.getItems().size() == 1000) {
+                    this.series.remove(0);
+                }
+                
                 this.series.add(number, old_lift_drag);
+                
                 drawChart();
                 repaint();
                 revalidate();
