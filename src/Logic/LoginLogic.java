@@ -28,8 +28,7 @@ public class LoginLogic {
             System.out.printf("\n");
             //Check if the username exists in the database
             boolean exist = new UserDB().userNameExists(userName);
-            if (exist) System.out.printf("exist");
-            else System.out.printf("it does not exist");
+    
             //If it exists, check its password
             //False is returned if it does not exsist or the password is not ok
             if (exist)
@@ -64,8 +63,6 @@ public class LoginLogic {
             //If it exists returns false because it cannot be created again
             //if not, it calls the function createRegisteredUser to register it
             boolean exist = new UserDB().userNameExists(userName);
-            if (exist)System.out.printf("ya existe\n");
-            else System.out.printf("puedo crear\n");
             
             if (exist) return false;
             else 
