@@ -97,32 +97,20 @@ public class UserDB {
         }
     }
     
-    /*
-    /**
-     * Finds the greatest userID in the DB
-     * @return Greatest userID
-     * @throws Exception 
-     
-    public int findLastUserID() throws Exception {
+    public void deleteRegisteredUser(String userName) throws Exception {
         try {
+            if (this.userNameExists(userName)) {
+                connManager.connect();
+                
+                connManager.queryDB("DELETE FROM users WHERE username = '"
+                        + userName + "'");
 
-            connManager.connect();
-            
-            ResultSet rs = connManager.queryDB("SELECT MAX(USERID) FROM USERS");
-            connManager.close();
-            try {
-                if (rs.next()) {
-                    int userID = rs.getInt(1);
-                    return userID;
-                } else {
-                    return -1;
-                }
-            } catch (SQLException e) {
-                throw new Exception("DB_READ_ERROR");
+                connManager.close();
+            } else {
+                throw new Exception("USU_REG_DOESNT_EXISTS");
             }
         } catch (Exception e) {
             throw e;
         }
     }
-    */
 }
