@@ -171,6 +171,8 @@ public class Login extends javax.swing.JFrame {
                 this.setVisible(false);
                 MainFrame mafr = new MainFrame();
                 mafr.setVisible(true);
+                Recover recov = new Recover(this,true);
+                recov.setVisible(true);
                 this.dispose();
             }
 
