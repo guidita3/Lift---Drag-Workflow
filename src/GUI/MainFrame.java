@@ -43,6 +43,10 @@ public class MainFrame extends javax.swing.JFrame {
     private XYSeries series;
     
 
+    /**
+     * This function plots in the GUI the data stored in this.series, that represents the optimized value of lift divided by drag.
+     * @author Margarida
+     */
     public void drawChart() {
         XYSeriesCollection dataset = new XYSeriesCollection();
 
@@ -62,7 +66,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     /**
-     * Creates new form MainFrame
+     * This function is the constructor of the MainFrame class and it initialises all the data of the program, including the database.
+     * @author Margarida
      */
     public MainFrame() {
         try {
@@ -304,9 +309,18 @@ public class MainFrame extends javax.swing.JFrame {
 
     /**
      * This is the function that is executed when the button submit is pressed.
-     * It starts the optimisation process.
+     * It starts the optimisation process. In this function the old, current and
+     * new data are updated using the functions of lift, drag and optimization.
+     * Errors are founded and treated. Failures are recovered and the data
+     * coming from the GUI is processed making the application fulfil its main
+     * purpose: the optimization of the lift divided by draft values. At the
+     * end the data is plotted allowing the user to check the data evolution.
      *
      * @param evt
+     * @see #lift(double, double, double) 
+     * @see #drag(double, double, double)
+     * @see #optimizer(double, double, double[], double[], double[], int)
+     * @author Margarida
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;
