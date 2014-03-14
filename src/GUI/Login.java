@@ -1,7 +1,6 @@
 package GUI;
 
 import Logic.LoginLogic;
-import Logic.InitialiseDB;
 import java.awt.Dialog;
 
 
@@ -51,6 +50,12 @@ public class Login extends javax.swing.JFrame {
         jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoginActionPerformed(evt);
+            }
+        });
+
+        jTextUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextUsernameActionPerformed(evt);
             }
         });
 
@@ -186,15 +191,16 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
+    private void jTextUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextUsernameActionPerformed
+
     
     
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Initialises the DB */
-        InitialiseDB init = new InitialiseDB();
-        init.init();
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

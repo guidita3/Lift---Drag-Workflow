@@ -38,6 +38,7 @@ public class InitialiseDB {
             Statement sentencia = dbcon.createStatement();
             //sentencia.execute("delete from PUBLIC.USER;");
             sentencia.execute("delete from PUBLIC.BACKUP;");
+            sentencia.execute("insert into PUBLIC.BACKUP values ('0', '10', '10', '0.25', '0')");
 	} catch (SQLException e) {
             e.printStackTrace();
 	}

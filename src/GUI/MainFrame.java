@@ -11,6 +11,8 @@ import java.awt.Color;
 import static java.lang.StrictMath.cos;
 import static java.lang.StrictMath.exp;
 import static java.lang.StrictMath.sin;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -70,6 +72,14 @@ public class MainFrame extends javax.swing.JFrame {
         }
         initComponents();
         setBackground(Color.white);
+        try {
+            data = dataBase.findLastData();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        r_input.setText(Double.toString(data.getR()));
+        t_input.setText(Double.toString(data.getT()));
+        angle_input.setText(Double.toString(data.getTheta()));
         this.setTitle("Lift and Drag Optimizer");
         this.old_params = new double[4];
         this.current_params = new double[4];
@@ -261,7 +271,7 @@ public class MainFrame extends javax.swing.JFrame {
      * for a BAC lightning.
      *
      * @param r This is the width of the wing.
-     * @param t This is the lenght of the wing.
+     * @param t This is the length of the wing.
      * @param theta This is the angle of attack.
      * @return Returns the value of the lift force.
      * @author Joan
@@ -352,13 +362,20 @@ public class MainFrame extends javax.swing.JFrame {
 
     /**
      * This is the function that is executed when the button submit is pressed.
-     * It starts the optimization process.
+     * It starts the optimisation process.
      *
      * @param evt
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;
         int p = 0;
+        try {
+            data = dataBase.findLastData();
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+        
+        number = data.getIteration();
         
         this.current_params[0] = Double.parseDouble(r_input.getText());
         this.current_params[1] = Double.parseDouble(t_input.getText());
