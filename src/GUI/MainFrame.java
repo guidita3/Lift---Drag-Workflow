@@ -312,7 +312,6 @@ public class MainFrame extends javax.swing.JFrame {
         double lift, drag, lift_drag, old_lift_drag = 0;
         int p = 0;
         int add = 0;
-        
         try {
             data = dataBase.findLastData();
         } catch (Exception e){
