@@ -21,7 +21,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 /**
- *
+ * Class Mainframe. Contains the basic logic for the optimization and the graph.
  * @author Joan Francesc
  * @author Miguel Angel Grimaldos 
  * @author Margarida Pereira
@@ -45,7 +45,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     /**
      * This function plots in the GUI the data stored in this.series, that represents the optimized value of lift divided by drag.
-     * @author Margarida
+     * 
      */
     public void drawChart() {
         XYSeriesCollection dataset = new XYSeriesCollection();
@@ -67,7 +67,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     /**
      * This function is the constructor of the MainFrame class and it initialises all the data of the program, including the database.
-     * @author Margarida
+     * 
      */
     public MainFrame() {
         try {
@@ -221,7 +221,7 @@ public class MainFrame extends javax.swing.JFrame {
      * @param t This is the length of the wing.
      * @param theta This is the angle of attack.
      * @return Returns the value of the lift force.
-     * @author Joan
+     * 
      */
     public double lift(double r, double t, double theta) {
         double lift;
@@ -242,7 +242,7 @@ public class MainFrame extends javax.swing.JFrame {
      * @param t This is the length of the wing.
      * @param theta This is the angle of attack.
      * @return Returns the value of the drag force.
-     * @author Joan
+     * 
      */
     public double drag(double r, double t, double theta) {
         double drag;
@@ -263,7 +263,7 @@ public class MainFrame extends javax.swing.JFrame {
      * @param step This vector contains the step size of every parameter. For example step[0] is teh step size for current_param[0] (r)
      * @param p This indicates which parameter to change in this iteration.
      * @return Returns the parameters to be used in the next iteration
-     * @author Joan
+     * 
      */
     public double[] optimizer(double lift_drag, double old_lift_drag, double[] old_param, double[] current_param, double step[], int p) {
         double[] new_param = new double[5];//param[0]=r, param[1]=t, param[2]=theta, param[3]= turns improving in a row
@@ -320,7 +320,7 @@ public class MainFrame extends javax.swing.JFrame {
      * @see #lift(double, double, double) 
      * @see #drag(double, double, double)
      * @see #optimizer(double, double, double[], double[], double[], int)
-     * @author Margarida
+     * 
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;

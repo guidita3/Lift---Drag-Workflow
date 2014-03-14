@@ -6,7 +6,7 @@ package GUI;
  */
 
 /**
- *
+ * Basic error message
  * @author Joan Francesc
  * @author Miguel Angel Grimaldos 
  * @author Margarida Pereira

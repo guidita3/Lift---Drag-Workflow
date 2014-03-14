@@ -13,7 +13,7 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 /**
- *
+ * Class Graph
  * @author Joan Francesc
  * @author Miguel Angel Grimaldos 
  * @author Margarida Pereira
