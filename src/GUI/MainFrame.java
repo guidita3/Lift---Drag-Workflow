@@ -311,6 +311,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;
         int p = 0;
+        int add = 0;
         try {
             data = dataBase.findLastData();
         } catch (Exception e){
