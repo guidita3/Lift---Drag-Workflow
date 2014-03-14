@@ -126,35 +126,35 @@ public class MainFrame extends javax.swing.JFrame {
 
         r_input.setText("1");
         r_input.setName("r_input"); // NOI18N
-        jPanel1.add(r_input, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 80, -1));
+        jPanel1.add(r_input, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 80, -1));
 
         t_input.setText("1");
         t_input.setName("t_input"); // NOI18N
-        jPanel1.add(t_input, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 80, -1));
+        jPanel1.add(t_input, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 80, -1));
 
         angle_input.setText("0.5");
         angle_input.setName("angle_input"); // NOI18N
-        jPanel1.add(angle_input, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 80, -1));
+        jPanel1.add(angle_input, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 80, -1));
 
         jLabel1.setBackground(java.awt.Color.white);
         jLabel1.setText("Radius = ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 60, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 90, -1));
 
         jLabel2.setBackground(java.awt.Color.white);
         jLabel2.setText("Length = ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 60, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 90, -1));
 
         jLabel3.setBackground(java.awt.Color.white);
         jLabel3.setText("Angle = ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 60, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 90, -1));
 
         jLabel4.setBackground(java.awt.Color.white);
         jLabel4.setText("meter(s)");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, -1, -1));
 
         jLabel5.setBackground(java.awt.Color.white);
         jLabel5.setText("meter(s)");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, -1, -1));
 
         chart_panel.setBackground(java.awt.Color.white);
 
@@ -181,23 +181,23 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, -1, -1));
 
         jLabel7.setText("radians");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, -1));
 
         n_iter.setText("200");
-        jPanel1.add(n_iter, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 60, -1));
+        jPanel1.add(n_iter, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 80, -1));
 
         jLabel8.setText("Iterations =");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 60, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 90, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1019, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -311,6 +311,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double lift, drag, lift_drag, old_lift_drag = 0;
         int p = 0;
+        int add = 0;
+        
         try {
             data = dataBase.findLastData();
         } catch (Exception e){
