@@ -375,7 +375,7 @@ public class MainFrame extends javax.swing.JFrame {
             System.err.println(e.getMessage());
         }
         
-        number = data.getIteration();
+        number = data.getIteration() + 1;
         
         this.current_params[0] = Double.parseDouble(r_input.getText());
         this.current_params[1] = Double.parseDouble(t_input.getText());
