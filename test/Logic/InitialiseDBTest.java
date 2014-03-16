@@ -47,7 +47,7 @@ public class InitialiseDBTest {
         InitialiseDB instance = new InitialiseDB();
         instance.init();
         
-        assertNull(new DataDB().findLastData());
+        assertNotNull(new DataDB().findLastData());
     }
     
 }
